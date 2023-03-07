@@ -1,6 +1,6 @@
-package dev.akuniutka.skillfactory.lms;
+package dev.akuniutka.skillfactory.lms.models;
 
-import java.util.UUID;
+import dev.akuniutka.skillfactory.lms.enums.StudyProfile;
 
 public class University {
     private String id;
@@ -8,15 +8,9 @@ public class University {
     private String shortName;
     private int yearOfFoundation;
     private StudyProfile mainProfile;
-    private String address;
-    private String url;
-    private String email;
-    private String phone;
 
 
-    public University() {
-        this.id = UUID.randomUUID().toString();
-    }
+    public University() {}
 
 
     public String getId() {
@@ -64,42 +58,6 @@ public class University {
         return this;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public University setAddress(String address) {
-        this.address = address;
-        return this;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public University setUrl(String url) {
-        this.url = url;
-        return this;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public University setEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public University setPhone(String phone) {
-        this.phone = phone;
-        return this;
-    }
-
 
     @Override
     public String toString() {
@@ -109,10 +67,6 @@ public class University {
                 ", shortName='" + shortName + '\'' +
                 ", yearOfFoundation=" + yearOfFoundation +
                 ", mainProfile=" + mainProfile +
-                ", address='" + address + '\'' +
-                ", url='" + url + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
                 '}';
     }
 }

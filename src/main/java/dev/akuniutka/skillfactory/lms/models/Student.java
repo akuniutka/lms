@@ -1,21 +1,13 @@
-package dev.akuniutka.skillfactory.lms;
-
-import java.time.LocalDate;
+package dev.akuniutka.skillfactory.lms.models;
 
 public class Student {
     private String fullName;
     private String universityId;
     private int currentCourseNumber;
     private float avgExamScore;
-    private LocalDate dateOfBirth;
-    private String email;
-    private String phone;
 
 
-    public Student() {
-        this.fullName = "Иванов Иван Иванович";
-        this.dateOfBirth = LocalDate.now().minusYears(18);
-    }
+    public Student() {}
 
 
     public String getFullName() {
@@ -54,33 +46,6 @@ public class Student {
         return this;
     }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public Student setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-        return this;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Student setEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public Student setPhone(String phone) {
-        this.phone = phone;
-        return this;
-    }
-
 
     @Override
     public String toString() {
@@ -89,9 +54,6 @@ public class Student {
                 ", universityId='" + universityId + '\'' +
                 ", currentCourseNumber=" + currentCourseNumber +
                 ", avgExamScore=" + avgExamScore +
-                ", dateOfBirth=" + dateOfBirth +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
                 '}';
     }
 }

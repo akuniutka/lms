@@ -1,4 +1,4 @@
-package dev.akuniutka.skillfactory.lms;
+package dev.akuniutka.skillfactory.lms.enums;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +13,9 @@ public enum StudyProfile {
     BIOLOGY("06.03.01", "Биология"),
     APPLIED_MECHANICS("15.03.03", "Прикладная механика"),
     PSYCHOLOGY("37.03.01", "Психология"),
-    ECONOMICS("38.03.01", "Экономика");
+    ECONOMICS("38.03.01", "Экономика"),
+    MEDICINE("31.00.00", "Клиническая медицина"),
+    LINGUISTICS("45.03.02", "Лингвистика");
 
     public final String profileCode;
     public final String profileName;
