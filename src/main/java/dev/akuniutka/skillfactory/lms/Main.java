@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Main {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
-    private static final String DATA_FILE_NAME = "universityinfo.xlsx";
+    private static final String DATA_FILE_NAME = "/universityinfo.xlsx";
 
     public static void main(String[] args) {
         try {

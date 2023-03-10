@@ -22,7 +22,8 @@ public class XLSXConnector {
     public static List<Student> getStudentsList(String fileName) throws IOException {
         List<Student> students = new ArrayList<>();
         LOGGER.debug("Opening XLSX workbook from file '" + fileName + "'");
-        XSSFWorkbook workbook = new XSSFWorkbook(fileName);
+//        XSSFWorkbook workbook = new XSSFWorkbook(fileName);
+        XSSFWorkbook workbook = new XSSFWorkbook(XLSXConnector.class.getResourceAsStream(fileName));
         LOGGER.debug("Locating worksheet #0");
         XSSFSheet sheet = workbook.getSheetAt(0);
         Iterator<Row> rows = sheet.iterator();
@@ -48,7 +49,8 @@ public class XLSXConnector {
     public static List<University> getUniversitiesList(String fileName) throws IOException {
         List<University> universities = new ArrayList<>();
         LOGGER.debug("Opening XLSX workbook from file '" + fileName + "'");
-        XSSFWorkbook workbook = new XSSFWorkbook(fileName);
+//        XSSFWorkbook workbook = new XSSFWorkbook(fileName);
+        XSSFWorkbook workbook = new XSSFWorkbook(XLSXConnector.class.getResourceAsStream(fileName));
         LOGGER.debug("Locating worksheet #1");
         XSSFSheet sheet = workbook.getSheetAt(1);
         Iterator<Row> rows = sheet.iterator();
