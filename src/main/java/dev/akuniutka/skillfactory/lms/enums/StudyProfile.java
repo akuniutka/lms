@@ -40,4 +40,12 @@ public enum StudyProfile {
     public static StudyProfile valueOfCode(String profileCode) {
         return BY_CODE.get(profileCode);
     }
+
+    public String getProfileName() {
+        return profileName;
+    }
+
+    public String getProfileCode() {
+        return profileCode;
+    }
 }
