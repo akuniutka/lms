@@ -1,0 +1,12 @@
+MATHEMATICS;01.03.01;Математика
+APPLIED_MATHEMATICS;01.03.04;Прикладная математика
+PHYSICS;03.03.02;Физика
+CHEMISTRY;04.03.01;Химия
+GEOLOGY;05.03.01;Геология
+GEOGRAPHY;05.03.02;География
+BIOLOGY;06.03.01;Биология
+APPLIED_MECHANICS;15.03.03;Прикладная механика
+PSYCHOLOGY;37.03.01;Психология
+ECONOMICS;38.03.01;Экономика
+MEDICINE;31.00.00;Клиническая медицина
+LINGUISTICS;45.03.02;Лингвистика

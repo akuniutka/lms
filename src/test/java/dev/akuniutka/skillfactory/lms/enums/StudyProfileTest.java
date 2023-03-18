@@ -1,32 +1,85 @@
 package dev.akuniutka.skillfactory.lms.enums;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class StudyProfileTest {
+    private static final String SRC_PATH = "/studyprofiles.txt";
+    private static List<TestStudyProfile> testStudyProfiles = null;
 
-    @Test
-    void valueOfName() {
+    static class TestStudyProfile {
+        final String value;
+        final String profileCode;
+        final String profileName;
+
+        TestStudyProfile(String initString) {
+            String[] strings = initString.split(";");
+            if (strings.length != 3) {
+                throw new IllegalArgumentException("initString must contain three strings, separated by ';'");
+            }
+            value = strings[0];
+            profileCode = strings[1];
+            profileName = strings[2];
+        }
+    }
+
+    @BeforeAll
+    static void loadProfiles() {
+        List<TestStudyProfile> tempTestStudyProfiles = new ArrayList<>();
+        try (Scanner in = new Scanner(StudyProfileTest.class.getResourceAsStream(SRC_PATH))) {
+            while (in.hasNextLine()) {
+                tempTestStudyProfiles.add(new TestStudyProfile(in.nextLine()));
+            }
+        }
+        testStudyProfiles = tempTestStudyProfiles;
     }
 
     @Test
-    void valueOfCode() {
+    void enumShouldContainFixedSetOfValues() {
+        assertEquals(testStudyProfiles.size(), StudyProfile.values().length);
+        for (TestStudyProfile testStudyProfile : testStudyProfiles) {
+            assertNotNull(StudyProfile.valueOf(testStudyProfile.value));
+        }
     }
 
     @Test
-    void getProfileName() {
+    void valueOfCodeShouldReturnCorrectStudyProfileObject() {
+        for (TestStudyProfile testStudyProfile : testStudyProfiles) {
+            assertSame(StudyProfile.valueOf(testStudyProfile.value),
+                    StudyProfile.valueOfCode(testStudyProfile.profileCode));
+        }
     }
 
     @Test
-    void getProfileCode() {
+    void valueOfNameShouldReturnCorrectStudyProfileObject() {
+        for (TestStudyProfile testStudyProfile : testStudyProfiles) {
+            assertSame(StudyProfile.valueOf(testStudyProfile.value),
+                    StudyProfile.valueOfName(testStudyProfile.profileName)
+            );
+        }
     }
 
     @Test
-    void values() {
+    void getProfileCodeShouldReturnCorrectProfileCode() {
+        for (TestStudyProfile testStudyProfile : testStudyProfiles) {
+            assertEquals(testStudyProfile.profileCode,
+                    StudyProfile.valueOf(testStudyProfile.value).getProfileCode()
+            );
+        }
     }
 
     @Test
-    void valueOf() {
+    void getProfileNameShouldReturnCorrectProfileName() {
+        for (TestStudyProfile testStudyProfile : testStudyProfiles) {
+            assertEquals(testStudyProfile.profileName,
+                    StudyProfile.valueOf(testStudyProfile.value).getProfileName()
+            );
+        }
     }
 }

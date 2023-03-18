@@ -17,10 +17,11 @@ public enum StudyProfile {
     MEDICINE("31.00.00", "Клиническая медицина"),
     LINGUISTICS("45.03.02", "Лингвистика");
 
-    public final String profileCode;
-    public final String profileName;
+    private final String profileCode;
+    private final String profileName;
     private static final Map<String, StudyProfile> BY_NAME = new HashMap<>();
     private static final Map<String, StudyProfile> BY_CODE = new HashMap<>();
+
     static {
         for (StudyProfile profile : values()) {
             BY_NAME.put(profile.profileName, profile);

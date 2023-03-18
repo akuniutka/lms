@@ -18,13 +18,14 @@ public class XLSXConnector {
     private static final String STUDENTS_SHEET_NAME = "Студенты";
     private static final String UNIVERSITIES_SHEET_NAME = "Университеты";
 
-    private XLSXConnector() {}
+    private XLSXConnector() {
+    }
 
     public static List<Student> getStudentsList(String fileName) throws IOException {
         List<Student> students = new ArrayList<>();
         LOGGER.debug("trying to read data from sheet '" + STUDENTS_SHEET_NAME + "' in file '" + fileName + "'");
         try (InputStream is = XLSXConnector.class.getResourceAsStream(fileName);
-                Workbook workbook = new XSSFWorkbook(is)) {
+             Workbook workbook = new XSSFWorkbook(is)) {
             Sheet sheet = workbook.getSheet(STUDENTS_SHEET_NAME);
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) {
@@ -34,8 +35,8 @@ public class XLSXConnector {
                 Student student = new Student()
                         .setUniversityId(row.getCell(0).getStringCellValue())
                         .setFullName(row.getCell(1).getStringCellValue())
-                        .setCurrentCourseNumber((int) (row.getCell(2).getNumericCellValue()))
-                        .setAvgExamScore((float) (row.getCell(3).getNumericCellValue()));
+                        .setCurrentCourseNumber((int) row.getCell(2).getNumericCellValue())
+                        .setAvgExamScore((float) row.getCell(3).getNumericCellValue());
                 LOGGER.debug("read row #" + row.getRowNum());
                 students.add(student);
             }
@@ -58,7 +59,7 @@ public class XLSXConnector {
                         .setId(row.getCell(0).getStringCellValue())
                         .setFullName(row.getCell(1).getStringCellValue())
                         .setShortName(row.getCell(2).getStringCellValue())
-                        .setYearOfFoundation((int)(row.getCell(3).getNumericCellValue()))
+                        .setYearOfFoundation((int) row.getCell(3).getNumericCellValue())
                         .setMainProfile(StudyProfile.valueOf(row.getCell(4).getStringCellValue()));
                 LOGGER.debug("read row #" + row.getRowNum());
                 universities.add(university);
