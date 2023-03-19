@@ -1,29 +1,25 @@
 package dev.akuniutka.skillfactory.lms.models;
 
+import dev.akuniutka.skillfactory.lms.TestData;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import com.github.javafaker.Faker;
-
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
-
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class StudentTest {
-    private static final Faker FAKER = new Faker();
-    private static final Random RANDOM = new Random();
     private static final int TEST_ITERATIONS = 2;
+    private final TestData testData = new TestData();
+
+    @BeforeEach
+    void resetTestData() {
+        testData.reset();
+    }
 
     @Test
     void whenSetFullNameTheSameStudentObjectShouldBeReturned() {
         Student student = new Student();
-        Set<String> fullNames = new HashSet<>();
-        while (fullNames.size() < TEST_ITERATIONS) {
-            fullNames.add(FAKER.name().fullName());
-        }
-
-        for (String fullName : fullNames) {
+        for (int i = 0; i < TEST_ITERATIONS; i++) {
+            String fullName = testData.getNextStudentFullName();
             assertSame(student, student.setFullName(fullName));
         }
     }
@@ -31,12 +27,8 @@ class StudentTest {
     @Test
     void whenSetFullNameGetFullNameShouldReturnThatValue() {
         Student student = new Student();
-        Set<String> fullNames = new HashSet<>();
-        while (fullNames.size() < TEST_ITERATIONS) {
-            fullNames.add(FAKER.name().fullName());
-        }
-
-        for (String fullName : fullNames) {
+        for (int i = 0; i < TEST_ITERATIONS; i++) {
+            String fullName = testData.getNextStudentFullName();
             student.setFullName(fullName);
             assertEquals(fullName, student.getFullName());
         }
@@ -45,12 +37,8 @@ class StudentTest {
     @Test
     void whenSetUniversityIdTheSameStudentObjectShouldBeReturned() {
         Student student = new Student();
-        Set<String> universityIds = new HashSet<>();
-        while (universityIds.size() < TEST_ITERATIONS) {
-            universityIds.add(FAKER.idNumber().ssnValid());
-        }
-
-        for (String universityId : universityIds) {
+        for (int i = 0; i < TEST_ITERATIONS; i++) {
+            String universityId = testData.getNextUniversityID();
             assertSame(student, student.setUniversityId(universityId));
         }
     }
@@ -58,12 +46,8 @@ class StudentTest {
     @Test
     void whenSetUniversityIdGetUnivesityIdShouldReturnThatValue() {
         Student student = new Student();
-        Set<String> universityIds = new HashSet<>();
-        while (universityIds.size() < TEST_ITERATIONS) {
-            universityIds.add(FAKER.idNumber().ssnValid());
-        }
-
-        for (String universityId : universityIds) {
+        for (int i = 0; i < TEST_ITERATIONS; i++) {
+            String universityId = testData.getNextUniversityID();
             student.setUniversityId(universityId);
             assertEquals(universityId, student.getUniversityId());
         }
@@ -72,12 +56,8 @@ class StudentTest {
     @Test
     void whenSetCurrentCourseNumberTheSameStudentObjectShouldBeReturned() {
         Student student = new Student();
-        Set<Integer> currentCourseNumbers = new HashSet<>();
-        while (currentCourseNumbers.size() < Math.min(TEST_ITERATIONS, 4)) {
-            currentCourseNumbers.add(FAKER.number().numberBetween(1, 5));
-        }
-
-        for (Integer currentCourseNumber : currentCourseNumbers) {
+        for (int i = 0; i < TEST_ITERATIONS; i++) {
+            int currentCourseNumber = testData.getNextStudentCurrentCourseNumber();
             assertSame(student, student.setCurrentCourseNumber(currentCourseNumber));
         }
     }
@@ -85,12 +65,8 @@ class StudentTest {
     @Test
     void whenSetCurrentCourseNumberGetCurrentCourseNumberShouldReturnThatValue() {
         Student student = new Student();
-        Set<Integer> currentCourseNumbers = new HashSet<>();
-        while (currentCourseNumbers.size() < Math.min(TEST_ITERATIONS, 4)) {
-            currentCourseNumbers.add(FAKER.number().numberBetween(1, 5));
-        }
-
-        for (Integer currentCourseNumber : currentCourseNumbers) {
+        for (int i = 0; i < TEST_ITERATIONS; i++) {
+            int currentCourseNumber = testData.getNextStudentCurrentCourseNumber();
             student.setCurrentCourseNumber(currentCourseNumber);
             assertEquals(currentCourseNumber, student.getCurrentCourseNumber());
         }
@@ -99,12 +75,8 @@ class StudentTest {
     @Test
     void whenSetAvgExamScoreTheSameStudentObjectShouldBeReturned() {
         Student student = new Student();
-        Set<Float> avgExamScores = new HashSet<>();
-        while (avgExamScores.size() < TEST_ITERATIONS) {
-            avgExamScores.add(RANDOM.nextFloat() * 4 + 1);
-        }
-
-        for (Float avgExamScore : avgExamScores) {
+        for (int i = 0; i < TEST_ITERATIONS; i++) {
+            float avgExamScore = testData.getNextStudentAvgExamScore();
             assertSame(student, student.setAvgExamScore(avgExamScore));
         }
     }
@@ -112,12 +84,8 @@ class StudentTest {
     @Test
     void whenSetAvgExamScoreGetAvgExamScoreShouldReturnThatValue() {
         Student student = new Student();
-        Set<Float> avgExamScores = new HashSet<>();
-        while (avgExamScores.size() < TEST_ITERATIONS) {
-            avgExamScores.add(RANDOM.nextFloat() * 4 + 1);
-        }
-
-        for (Float avgExamScore : avgExamScores) {
+        for (int i = 0; i < TEST_ITERATIONS; i++) {
+            float avgExamScore = testData.getNextStudentAvgExamScore();
             student.setAvgExamScore(avgExamScore);
             assertEquals(avgExamScore, student.getAvgExamScore());
         }
@@ -126,30 +94,11 @@ class StudentTest {
     @Test
     void toStringShouldReturnFullNameUniversityIdCurrentCourseNumberAvgExamScore() {
         Student student = new Student();
-        String fullName;
-        String universityId;
-        int currentCourseNumber;
-        float avgExamScore;
-        Set<String> usedFullNames = new HashSet<>();
-        Set<String> usedUniversityIds = new HashSet<>();
-        Set<Integer> usedCurrentCourseNumbers = new HashSet<>();
-        Set<Float> usedAvgExamScores = new HashSet<>();
-
         for (int i = 0; i < TEST_ITERATIONS; i++) {
-            do {
-                fullName = FAKER.name().fullName();
-            } while (!usedFullNames.add(fullName));
-            do {
-                universityId = FAKER.idNumber().ssnValid();
-            } while (!usedUniversityIds.add(universityId));
-            do {
-                currentCourseNumber = FAKER.number().numberBetween(1, 5);
-            } while (!usedCurrentCourseNumbers.add(currentCourseNumber)
-                    && usedCurrentCourseNumbers.size() < 4
-            );
-            do {
-                avgExamScore = RANDOM.nextFloat() * 4 + 1;
-            } while (!usedAvgExamScores.add(avgExamScore));
+            String fullName = testData.getNextStudentFullName();
+            String universityId = testData.getNextUniversityID();
+            int currentCourseNumber = testData.getNextStudentCurrentCourseNumber();
+            float avgExamScore = testData.getNextStudentAvgExamScore();
             String expected = "Student{" +
                     "fullName='" + fullName + '\'' +
                     ", universityId='" + universityId + '\'' +
