@@ -1,14 +1,14 @@
 package dev.akuniutka.skillfactory.lms.comparators;
 
-import dev.akuniutka.skillfactory.lms.enums.StudentComparators;
-import dev.akuniutka.skillfactory.lms.enums.UniversityComparators;
+import dev.akuniutka.skillfactory.lms.enums.StudentComparatorType;
+import dev.akuniutka.skillfactory.lms.enums.UniversityComparatorType;
 
 public class Comparators {
     private Comparators() {
     }
 
-    public static StudentComparator getComparator(StudentComparators comparatorId) {
-        switch (comparatorId) {
+    public static StudentComparator getComparator(StudentComparatorType comparatorType) {
+        switch (comparatorType) {
             case BY_FULL_NAME:
                 return new StudentFullNameComparator();
             case BY_UNIVERSITY_ID:
@@ -18,11 +18,11 @@ public class Comparators {
             case BY_AVG_EXAM_SCORE_DESC:
                 return new StudentAvgExamScoreComparator();
         }
-        throw new IllegalArgumentException("illegal comparator id passed");
+        throw new IllegalArgumentException("illegal comparator type passed");
     }
 
-    public static UniversityComparator getComparator(UniversityComparators comparatorId) {
-        switch (comparatorId) {
+    public static UniversityComparator getComparator(UniversityComparatorType comparatorType) {
+        switch (comparatorType) {
             case BY_ID:
                 return new UniversityIdComparator();
             case BY_FULL_NAME:
@@ -34,6 +34,6 @@ public class Comparators {
             case BY_MAIN_PROFILE:
                 return new UniversityMainProfileComparator();
         }
-        throw new IllegalArgumentException("illegal comparator id passed");
+        throw new IllegalArgumentException("illegal comparator type passed");
     }
 }

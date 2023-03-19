@@ -1,6 +1,6 @@
 package dev.akuniutka.skillfactory.lms.enums;
 
-public enum UniversityComparators {
+public enum UniversityComparatorType {
     BY_ID,
     BY_FULL_NAME,
     BY_SHORT_NAME,

@@ -25,32 +25,32 @@ public class Main {
         StudentComparator studentComparator;
 
 
-        universityComparator = Comparators.getComparator(UniversityComparators.BY_ID);
+        universityComparator = Comparators.getComparator(UniversityComparatorType.BY_ID);
         printListSorted(universities, universityComparator, "Universities by id:");
 
-        universityComparator = Comparators.getComparator(UniversityComparators.BY_FULL_NAME);
+        universityComparator = Comparators.getComparator(UniversityComparatorType.BY_FULL_NAME);
         printListSorted(universities, universityComparator, "Universities by full name:");
 
-        universityComparator = Comparators.getComparator(UniversityComparators.BY_SHORT_NAME);
+        universityComparator = Comparators.getComparator(UniversityComparatorType.BY_SHORT_NAME);
         printListSorted(universities, universityComparator, "Universities by short name:");
 
-        universityComparator = Comparators.getComparator(UniversityComparators.BY_YEAR_OF_FOUNDATION);
+        universityComparator = Comparators.getComparator(UniversityComparatorType.BY_YEAR_OF_FOUNDATION);
         printListSorted(universities, universityComparator, "Universities by year of foundation:");
 
-        universityComparator = Comparators.getComparator(UniversityComparators.BY_MAIN_PROFILE);
+        universityComparator = Comparators.getComparator(UniversityComparatorType.BY_MAIN_PROFILE);
         printListSorted(universities, universityComparator, "Universities by main profile:");
 
 
-        studentComparator = Comparators.getComparator(StudentComparators.BY_FULL_NAME);
+        studentComparator = Comparators.getComparator(StudentComparatorType.BY_FULL_NAME);
         printListSorted(students, studentComparator, "Students by full name:");
 
-        studentComparator = Comparators.getComparator(StudentComparators.BY_UNIVERSITY_ID);
+        studentComparator = Comparators.getComparator(StudentComparatorType.BY_UNIVERSITY_ID);
         printListSorted(students, studentComparator, "Students by university id:");
 
-        studentComparator = Comparators.getComparator(StudentComparators.BY_CURRENT_COURSE_NUMBER);
+        studentComparator = Comparators.getComparator(StudentComparatorType.BY_CURRENT_COURSE_NUMBER);
         printListSorted(students, studentComparator, "Students by current course number:");
 
-        studentComparator = Comparators.getComparator(StudentComparators.BY_AVG_EXAM_SCORE_DESC);
+        studentComparator = Comparators.getComparator(StudentComparatorType.BY_AVG_EXAM_SCORE_DESC);
         printListSorted(students, studentComparator, "Students by average exam score:");
 
         LOGGER.info("application stopped");
