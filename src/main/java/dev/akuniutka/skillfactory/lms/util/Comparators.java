@@ -1,11 +1,11 @@
-package dev.akuniutka.skillfactory.lms.comparators;
+package dev.akuniutka.skillfactory.lms.util;
 
+import dev.akuniutka.skillfactory.lms.comparators.*;
 import dev.akuniutka.skillfactory.lms.enums.StudentComparatorType;
 import dev.akuniutka.skillfactory.lms.enums.UniversityComparatorType;
 
 public class Comparators {
-    private Comparators() {
-    }
+    private Comparators() {}
 
     public static StudentComparator getComparator(StudentComparatorType comparatorType) {
         switch (comparatorType) {

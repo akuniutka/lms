@@ -18,8 +18,7 @@ public class XLSXConnector {
     private static final String STUDENTS_SHEET_NAME = "Студенты";
     private static final String UNIVERSITIES_SHEET_NAME = "Университеты";
 
-    private XLSXConnector() {
-    }
+    private XLSXConnector() {}
 
     public static List<Student> getStudentsList(String fileName) throws IOException {
         List<Student> students = new ArrayList<>();
