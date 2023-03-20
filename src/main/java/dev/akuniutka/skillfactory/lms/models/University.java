@@ -1,16 +1,23 @@
 package dev.akuniutka.skillfactory.lms.models;
 
+import com.google.gson.annotations.SerializedName;
 import dev.akuniutka.skillfactory.lms.enums.StudyProfile;
 
 public class University {
+    @SerializedName("universityId")
     private String id;
+    @SerializedName("universityFullName")
     private String fullName;
+    @SerializedName("universityShortName")
     private String shortName;
+    @SerializedName("universityYearOfFoundation")
     private int yearOfFoundation;
+    @SerializedName("universityMainProfile")
     private StudyProfile mainProfile;
 
 
-    public University() {}
+    public University() {
+    }
 
 
     public String getId() {

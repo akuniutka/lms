@@ -1,13 +1,20 @@
 package dev.akuniutka.skillfactory.lms.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Student {
+    @SerializedName("studentFullName")
     private String fullName;
+    @SerializedName("studentUniversityId")
     private String universityId;
+    @SerializedName("studentCurrentCourseNumber")
     private int currentCourseNumber;
+    @SerializedName("studentAvgExamScore")
     private float avgExamScore;
 
 
-    public Student() {}
+    public Student() {
+    }
 
 
     public String getFullName() {

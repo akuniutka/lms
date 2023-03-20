@@ -2,6 +2,8 @@ package dev.akuniutka.skillfactory.lms;
 
 import com.github.javafaker.Faker;
 import dev.akuniutka.skillfactory.lms.enums.StudyProfile;
+import dev.akuniutka.skillfactory.lms.models.Student;
+import dev.akuniutka.skillfactory.lms.models.University;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -43,7 +45,9 @@ public class TestData {
         String universityFullName;
         do {
             universityFullName = FAKER.university().name();
-        } while (!usedUniversityFullNames.add(universityFullName));
+        } while (!universityFullName.contains("'")
+                && !usedUniversityFullNames.add(universityFullName)
+        );
         return universityFullName;
     }
 
@@ -98,5 +102,22 @@ public class TestData {
             studentAvgExamScore = 5 - RANDOM.nextFloat() * 3;
         } while (!usedStudentAvgExamScores.add(studentAvgExamScore));
         return studentAvgExamScore;
+    }
+
+    public Student createRandomStudent() {
+        return new Student()
+                .setFullName(getNextStudentFullName())
+                .setUniversityId(getNextUniversityID())
+                .setCurrentCourseNumber(getNextStudentCurrentCourseNumber())
+                .setAvgExamScore(getNextStudentAvgExamScore());
+    }
+
+    public University createRandomUniversity() {
+        return new University()
+                .setId(getNextUniversityID())
+                .setFullName(getNextUniversityFullName())
+                .setShortName(getNextUniversityShortName())
+                .setYearOfFoundation(getNextUniversityYearOfFoundation())
+                .setMainProfile(getNextUniversityMainProfile());
     }
 }

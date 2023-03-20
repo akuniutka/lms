@@ -6,6 +6,7 @@ import dev.akuniutka.skillfactory.lms.comparators.*;
 import dev.akuniutka.skillfactory.lms.util.Comparators;
 import dev.akuniutka.skillfactory.lms.connectors.XLSXConnector;
 
+import dev.akuniutka.skillfactory.lms.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,11 +21,14 @@ public class Main {
     public static void main(String[] args) throws IOException {
         LOGGER.info("application started");
 
+        LOGGER.info("loading data from XLSX file");
+
         List<University> universities = XLSXConnector.getUniversitiesList(DATA_FILE_NAME);
-        List<Student> students= XLSXConnector.getStudentsList(DATA_FILE_NAME);
+        List<Student> students = XLSXConnector.getStudentsList(DATA_FILE_NAME);
         UniversityComparator universityComparator;
         StudentComparator studentComparator;
 
+        LOGGER.info("running comparators");
 
         universityComparator = Comparators.getComparator(UniversityComparatorType.BY_ID);
         printListSorted(universities, universityComparator, "Universities by id:");
@@ -53,6 +57,45 @@ public class Main {
 
         studentComparator = Comparators.getComparator(StudentComparatorType.BY_AVG_EXAM_SCORE_DESC);
         printListSorted(students, studentComparator, "Students by average exam score:");
+
+        LOGGER.info("running serialization/deserialization");
+
+        System.out.println("\nSerialised data: universities");
+        System.out.println("------------------------------");
+        String jsonUniversities = JsonUtil.serializeUniversities(universities);
+        System.out.println(jsonUniversities);
+        System.out.println("\nSerialised data: students");
+        System.out.println("------------------------------");
+        String jsonStudents = JsonUtil.serializeStudents(students);
+        System.out.println(jsonStudents);
+
+        List<University> newUniversities = JsonUtil.deserializeUniversities(jsonUniversities);
+        System.out.println("\nChecking deserialization of universities data:");
+        System.out.println("# of elements in the original set: " + universities.size());
+        System.out.println("# of elements deserialized: " + newUniversities.size());
+        System.out.println(universities.size() == newUniversities.size() ? "OK" : "ERROR");
+
+        List<Student> newStudents = JsonUtil.deserializeStudents(jsonStudents);
+        System.out.println("\nChecking deserialization of students data:");
+        System.out.println("# of elements in the original set: " + students.size());
+        System.out.println("# of elements deserialized: " + newStudents.size());
+        System.out.println(students.size() == newStudents.size() ? "OK" : "ERROR");
+
+        System.out.println("\nSerializing/deserializing universities data with stream:");
+        System.out.println("------------------------------");
+        universities.stream()
+                .map(JsonUtil::serializeUniversity)
+                .peek(System.out::println)
+                .map(JsonUtil::deserializeUniversity)
+                .forEach(System.out::println);
+
+        System.out.println("\nSerializing/deserializing students data with stream:");
+        System.out.println("------------------------------");
+        students.stream()
+                .map(JsonUtil::serializeStudent)
+                .peek(System.out::println)
+                .map(JsonUtil::deserializeStudent)
+                .forEach(System.out::println);
 
         LOGGER.info("application stopped");
     }
