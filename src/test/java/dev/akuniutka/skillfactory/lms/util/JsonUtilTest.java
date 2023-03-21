@@ -139,8 +139,8 @@ class JsonUtilTest {
         List<University> actual = JsonUtil.deserializeUniversities(json);
         assertEquals(expected.size(), actual.size());
         for (int i = 0; i < expected.size(); i++) {
-            assertEquals(actual.get(i).toString(), expected.get(i).toString());
-            assertEquals(actual.get(i).getMainProfile(), actual.get(i).getMainProfile());
+            assertEquals(expected.get(i).toString(), actual.get(i).toString());
+            assertEquals(expected.get(i).getMainProfile(), actual.get(i).getMainProfile());
         }
     }
 }
