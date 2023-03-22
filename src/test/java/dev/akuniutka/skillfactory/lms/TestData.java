@@ -45,8 +45,8 @@ public class TestData {
         String universityFullName;
         do {
             universityFullName = FAKER.university().name();
-        } while (!universityFullName.contains("'")
-                && !usedUniversityFullNames.add(universityFullName)
+        } while (universityFullName.contains("'")
+                || !usedUniversityFullNames.add(universityFullName)
         );
         return universityFullName;
     }
@@ -81,8 +81,8 @@ public class TestData {
         String studentFullName;
         do {
             studentFullName = FAKER.name().fullName();
-        } while (!studentFullName.contains("'")
-                && !usedStudentFullNames.add(studentFullName));
+        } while (studentFullName.contains("'")
+                || !usedStudentFullNames.add(studentFullName));
         return studentFullName;
     }
 
