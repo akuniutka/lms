@@ -1,6 +1,6 @@
-package dev.akuniutka.skillfactory.lms.comparators;
+package dev.akuniutka.skillfactory.lms.comparator;
 
-import dev.akuniutka.skillfactory.lms.models.Student;
+import dev.akuniutka.skillfactory.lms.model.Student;
 
 public class StudentAvgExamScoreComparator implements StudentComparator {
     @Override

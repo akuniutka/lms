@@ -1,9 +1,6 @@
-package dev.akuniutka.skillfactory.lms;
+package dev.akuniutka.skillfactory.lms.model;
 
 import com.github.javafaker.Faker;
-import dev.akuniutka.skillfactory.lms.enums.StudyProfile;
-import dev.akuniutka.skillfactory.lms.models.Student;
-import dev.akuniutka.skillfactory.lms.models.University;
 
 import java.util.HashSet;
 import java.util.Random;

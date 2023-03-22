@@ -1,4 +1,4 @@
-package dev.akuniutka.skillfactory.lms.models;
+package dev.akuniutka.skillfactory.lms.model;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,6 +1,6 @@
-package dev.akuniutka.skillfactory.lms;
+package dev.akuniutka.skillfactory.lms.io;
 
-import dev.akuniutka.skillfactory.lms.models.University;
+import dev.akuniutka.skillfactory.lms.model.University;
 import org.apache.poi.ss.usermodel.*;
 
 import java.io.Closeable;

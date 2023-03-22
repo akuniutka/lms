@@ -2,9 +2,9 @@ package dev.akuniutka.skillfactory.lms.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dev.akuniutka.skillfactory.lms.TestData;
-import dev.akuniutka.skillfactory.lms.models.Student;
-import dev.akuniutka.skillfactory.lms.models.University;
+import dev.akuniutka.skillfactory.lms.model.TestData;
+import dev.akuniutka.skillfactory.lms.model.Student;
+import dev.akuniutka.skillfactory.lms.model.University;
 
 import java.util.List;
 import java.util.ArrayList;

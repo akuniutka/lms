@@ -1,4 +1,4 @@
-package dev.akuniutka.skillfactory.lms.enums;
+package dev.akuniutka.skillfactory.lms.model;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,6 +1,6 @@
-package dev.akuniutka.skillfactory.lms.comparators;
+package dev.akuniutka.skillfactory.lms.comparator;
 
-import dev.akuniutka.skillfactory.lms.models.University;
+import dev.akuniutka.skillfactory.lms.model.University;
 import org.apache.commons.lang3.StringUtils;
 
 public class UniversityIdComparator implements UniversityComparator {

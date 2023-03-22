@@ -1,6 +1,5 @@
-package dev.akuniutka.skillfactory.lms.models;
+package dev.akuniutka.skillfactory.lms.model;
 
-import dev.akuniutka.skillfactory.lms.TestData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

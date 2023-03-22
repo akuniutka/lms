@@ -1,4 +1,4 @@
-package dev.akuniutka.skillfactory.lms.connectors;
+package dev.akuniutka.skillfactory.lms.io;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import dev.akuniutka.skillfactory.lms.enums.StudyProfile;
-import dev.akuniutka.skillfactory.lms.models.*;
+import dev.akuniutka.skillfactory.lms.model.StudyProfile;
+import dev.akuniutka.skillfactory.lms.model.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,8 +23,11 @@ public class XLSXConnector {
     public static List<Student> getStudentsList(String fileName) throws IOException {
         List<Student> students = new ArrayList<>();
         LOGGER.debug("trying to read data from sheet '" + STUDENTS_SHEET_NAME + "' in file '" + fileName + "'");
-        try (InputStream is = XLSXConnector.class.getResourceAsStream(fileName);
-             Workbook workbook = new XSSFWorkbook(is)) {
+        InputStream is = XLSXConnector.class.getResourceAsStream(fileName);
+        if (is == null) {
+            throw new IOException("file '" + fileName + "' not found among resources");
+        }
+        try (Workbook workbook = new XSSFWorkbook(is)) {
             Sheet sheet = workbook.getSheet(STUDENTS_SHEET_NAME);
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) {
@@ -46,8 +49,11 @@ public class XLSXConnector {
     public static List<University> getUniversitiesList(String fileName) throws IOException {
         List<University> universities = new ArrayList<>();
         LOGGER.debug("trying to read data from sheet '" + UNIVERSITIES_SHEET_NAME + "' in file '" + fileName + "'");
-        try (InputStream is = XLSXConnector.class.getResourceAsStream(fileName);
-             Workbook workbook = new XSSFWorkbook(is)) {
+        InputStream is = XLSXConnector.class.getResourceAsStream(fileName);
+        if (is == null) {
+            throw new IOException("file '" + fileName + "' not found among resources");
+        }
+        try (Workbook workbook = new XSSFWorkbook(is)) {
             Sheet sheet = workbook.getSheet(UNIVERSITIES_SHEET_NAME);
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) {

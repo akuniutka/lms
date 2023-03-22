@@ -1,8 +1,9 @@
-package dev.akuniutka.skillfactory.lms.enums;
+package dev.akuniutka.skillfactory.lms.model;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -32,7 +33,12 @@ class StudyProfileTest {
     @BeforeAll
     static void loadProfiles() {
         List<TestStudyProfile> tempTestStudyProfiles = new ArrayList<>();
-        try (Scanner in = new Scanner(StudyProfileTest.class.getResourceAsStream(SRC_PATH))) {
+        InputStream is = StudyProfileTest.class.getResourceAsStream(SRC_PATH);
+        if (is == null) {
+            fail("cannot read test data");
+            return;
+        }
+        try (Scanner in = new Scanner(is)) {
             while (in.hasNextLine()) {
                 tempTestStudyProfiles.add(new TestStudyProfile(in.nextLine()));
             }

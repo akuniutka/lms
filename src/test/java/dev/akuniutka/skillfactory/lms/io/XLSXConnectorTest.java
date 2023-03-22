@@ -1,10 +1,8 @@
-package dev.akuniutka.skillfactory.lms.connectors;
+package dev.akuniutka.skillfactory.lms.io;
 
-import dev.akuniutka.skillfactory.lms.TestData;
-import dev.akuniutka.skillfactory.lms.TestStudentRepository;
-import dev.akuniutka.skillfactory.lms.TestUniversityRepository;
-import dev.akuniutka.skillfactory.lms.models.Student;
-import dev.akuniutka.skillfactory.lms.models.University;
+import dev.akuniutka.skillfactory.lms.model.TestData;
+import dev.akuniutka.skillfactory.lms.model.Student;
+import dev.akuniutka.skillfactory.lms.model.University;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,7 +1,6 @@
-package dev.akuniutka.skillfactory.lms.models;
+package dev.akuniutka.skillfactory.lms.model;
 
 import com.google.gson.annotations.SerializedName;
-import dev.akuniutka.skillfactory.lms.enums.StudyProfile;
 
 public class University {
     @SerializedName("universityId")
