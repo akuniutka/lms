@@ -22,6 +22,7 @@ class XlsWriterTest {
     private static final int TEST_ITERATIONS = 2;
     private static final String STATISTICS_FILE_NAME = "/statisticsTestData.xlsx";
     private static final String STATISTICS_SHEET_NAME = "Статистика";
+    private static final short FONT_SIZE = 13;
 
     private final TestData testData = new TestData();
 
@@ -47,17 +48,27 @@ class XlsWriterTest {
                 int i = row.getRowNum();
                 if (i == 0) {
                     assertEquals("Профиль обучения", row.getCell(0).getStringCellValue());
+                    assertTrue(workbook.getFontAt(row.getCell(0).getCellStyle().getFontIndex()).getBold());
+                    assertEquals(FONT_SIZE, workbook.getFontAt(row.getCell(0).getCellStyle().getFontIndex()).getFontHeightInPoints());
                     assertEquals("Средний балл", row.getCell(1).getStringCellValue());
+                    assertTrue(workbook.getFontAt(row.getCell(1).getCellStyle().getFontIndex()).getBold());
+                    assertEquals(FONT_SIZE, workbook.getFontAt(row.getCell(1).getCellStyle().getFontIndex()).getFontHeightInPoints());
                     assertEquals("Количество студентов", row.getCell(2).getStringCellValue());
+                    assertTrue(workbook.getFontAt(row.getCell(2).getCellStyle().getFontIndex()).getBold());
+                    assertEquals(FONT_SIZE, workbook.getFontAt(row.getCell(2).getCellStyle().getFontIndex()).getFontHeightInPoints());
                     assertEquals("Количество университетов", row.getCell(3).getStringCellValue());
+                    assertTrue(workbook.getFontAt(row.getCell(3).getCellStyle().getFontIndex()).getBold());
+                    assertEquals(FONT_SIZE, workbook.getFontAt(row.getCell(3).getCellStyle().getFontIndex()).getFontHeightInPoints());
                     assertEquals("Университеты", row.getCell(4).getStringCellValue());
+                    assertTrue(workbook.getFontAt(row.getCell(4).getCellStyle().getFontIndex()).getBold());
+                    assertEquals(FONT_SIZE, workbook.getFontAt(row.getCell(4).getCellStyle().getFontIndex()).getFontHeightInPoints());
                 } else {
                     Statistics statistics = new Statistics()
                             .setStudyProfile(StudyProfile.valueOf(row.getCell(0).getStringCellValue()))
                             .setAvgExamScore((float) row.getCell(1).getNumericCellValue())
                             .setNumberOfStudents((int) row.getCell(2).getNumericCellValue())
                             .setNumberOfUniversities((int) row.getCell(3).getNumericCellValue())
-                            .setUniversityNames(Arrays.asList(row.getCell(4).getStringCellValue().split(";")));
+                            .setUniversityNames(Arrays.asList(row.getCell(4).getStringCellValue().split("\n")));
                     actual.add(statistics);
                 }
             }
