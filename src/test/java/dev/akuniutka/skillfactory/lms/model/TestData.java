@@ -18,6 +18,8 @@ public class TestData {
     private final Set<String> usedStudentFullNames = new HashSet<>();
     private final Set<Integer> usedStudentCurrentCourseNumbers = new HashSet<>();
     private final Set<Float> usedStudentAvgExamScores = new HashSet<>();
+    private final Set<Integer> usedNumbersOfStudents = new HashSet<>();
+    private final Set<Integer> usedNumbersOfUniversities = new HashSet<>();
 
     public void reset() {
         usedUniverityIds.clear();
@@ -28,6 +30,24 @@ public class TestData {
         usedStudentFullNames.clear();
         usedStudentCurrentCourseNumbers.clear();
         usedStudentAvgExamScores.clear();
+        usedNumbersOfStudents.clear();
+        usedNumbersOfUniversities.clear();
+    }
+
+    public Integer getNextNumberOfStudents() {
+        Integer numberOfStudents;
+        do {
+            numberOfStudents = RANDOM.nextInt();
+        } while (!usedNumbersOfStudents.add(numberOfStudents));
+        return numberOfStudents;
+    }
+
+    public Integer getNextNumberOfUniversities() {
+        Integer numberOfUniversities;
+        do {
+            numberOfUniversities = RANDOM.nextInt();
+        } while (!usedNumbersOfUniversities.add(numberOfUniversities));
+        return numberOfUniversities;
     }
 
     public String getNextUniversityID() {
