@@ -3,7 +3,7 @@ package dev.akuniutka.skillfactory.lms;
 import dev.akuniutka.skillfactory.lms.model.*;
 import dev.akuniutka.skillfactory.lms.comparator.*;
 import dev.akuniutka.skillfactory.lms.util.Comparators;
-import dev.akuniutka.skillfactory.lms.io.XLSXConnector;
+import dev.akuniutka.skillfactory.lms.io.XlsReader;
 
 import dev.akuniutka.skillfactory.lms.util.JsonUtil;
 import org.slf4j.Logger;
@@ -22,8 +22,8 @@ public class Main {
 
         LOGGER.info("loading data from XLSX file");
 
-        List<University> universities = XLSXConnector.getUniversitiesList(DATA_FILE_NAME);
-        List<Student> students = XLSXConnector.getStudentsList(DATA_FILE_NAME);
+        List<University> universities = XlsReader.getUniversitiesList(DATA_FILE_NAME);
+        List<Student> students = XlsReader.getStudentsList(DATA_FILE_NAME);
         UniversityComparator universityComparator;
         StudentComparator studentComparator;
 

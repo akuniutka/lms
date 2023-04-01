@@ -2,9 +2,7 @@ package dev.akuniutka.skillfactory.lms.model;
 
 import com.github.javafaker.Faker;
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class TestData {
     private static final Faker FAKER = new Faker();
@@ -35,18 +33,22 @@ public class TestData {
     }
 
     public Integer getNextNumberOfStudents() {
-        Integer numberOfStudents;
+        int numberOfStudents;
         do {
-            numberOfStudents = RANDOM.nextInt();
-        } while (!usedNumbersOfStudents.add(numberOfStudents));
+            numberOfStudents = RANDOM.nextInt(0, 50);
+        } while (!usedNumbersOfStudents.add(numberOfStudents)
+                && usedNumbersOfStudents.size() < 49
+        );
         return numberOfStudents;
     }
 
     public Integer getNextNumberOfUniversities() {
-        Integer numberOfUniversities;
+        int numberOfUniversities;
         do {
-            numberOfUniversities = RANDOM.nextInt();
-        } while (!usedNumbersOfUniversities.add(numberOfUniversities));
+            numberOfUniversities = RANDOM.nextInt(1, 50);
+        } while (!usedNumbersOfUniversities.add(numberOfUniversities)
+                && usedNumbersOfUniversities.size() < 48
+        );
         return numberOfUniversities;
     }
 
@@ -136,5 +138,19 @@ public class TestData {
                 .setShortName(getNextUniversityShortName())
                 .setYearOfFoundation(getNextUniversityYearOfFoundation())
                 .setMainProfile(getNextUniversityMainProfile());
+    }
+
+    public Statistics createRandomStatistics() {
+        int numberOfUniversities = getNextNumberOfUniversities();
+        List<String> universityNames = new ArrayList<>();
+        for (int i = 0; i < numberOfUniversities; i++) {
+            universityNames.add(getNextUniversityFullName());
+        }
+        return new Statistics()
+                .setStudyProfile(getNextUniversityMainProfile())
+                .setAvgExamScore(getNextStudentAvgExamScore())
+                .setNumberOfStudents(getNextNumberOfStudents())
+                .setNumberOfUniversities(numberOfUniversities)
+                .setUniversityNames(universityNames);
     }
 }

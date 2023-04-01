@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class XLSXConnectorTest {
+class XlsReaderTest {
     private static final int TEST_ITERATIONS = 2;
     private static final String STUDENTS_FILE_NAME = "/studentsTestData.xlsx";
     private static final String UNIVERSITIES_FILE_NAME = "/universitiesTestData.xlsx";
@@ -28,7 +28,7 @@ class XLSXConnectorTest {
     void whenGetStudentsListShouldReturnCorrectListOfStudents() {
         List<Student> expected = new ArrayList<>();
         List<Student> actual;
-        URL url = XLSXConnectorTest.class.getResource(STUDENTS_FILE_NAME);
+        URL url = XlsReaderTest.class.getResource(STUDENTS_FILE_NAME);
         if (url == null) {
             fail("cannot create test data file");
             return;
@@ -43,7 +43,7 @@ class XLSXConnectorTest {
             return;
         }
         try {
-            actual = XLSXConnector.getStudentsList(STUDENTS_FILE_NAME);
+            actual = XlsReader.getStudentsList(STUDENTS_FILE_NAME);
         } catch (IOException e) {
             fail("method threw an exception");
             return;
@@ -58,7 +58,7 @@ class XLSXConnectorTest {
     void whenGetUniversitiesListShouldReturnCorrectListOfUniversities() {
         List<University> expected = new ArrayList<>();
         List<University> actual;
-        URL url = XLSXConnectorTest.class.getResource(UNIVERSITIES_FILE_NAME);
+        URL url = XlsReaderTest.class.getResource(UNIVERSITIES_FILE_NAME);
         if (url == null) {
             fail("cannot create test data file");
             return;
@@ -73,7 +73,7 @@ class XLSXConnectorTest {
             return;
         }
         try {
-            actual = XLSXConnector.getUniversitiesList(UNIVERSITIES_FILE_NAME);
+            actual = XlsReader.getUniversitiesList(UNIVERSITIES_FILE_NAME);
         } catch (IOException e) {
             fail("method threw an exception");
             return;

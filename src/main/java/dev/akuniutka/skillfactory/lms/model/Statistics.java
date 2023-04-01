@@ -57,4 +57,15 @@ public class Statistics {
         this.universityNames = universityNames;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Statistics{" +
+                "studyProfile='" + studyProfile.getProfileName() + '\'' +
+                ", avgExamScore=" + avgExamScore +
+                ", numberOfStudents=" + numberOfStudents +
+                ", numberOfUniversities=" + numberOfUniversities +
+                ", universityNames={'" + String.join("', '", universityNames) + "'}" +
+                '}';
+    }
 }

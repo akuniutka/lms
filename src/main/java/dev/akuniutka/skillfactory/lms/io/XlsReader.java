@@ -6,24 +6,23 @@ import org.slf4j.Logger;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import dev.akuniutka.skillfactory.lms.model.StudyProfile;
 import dev.akuniutka.skillfactory.lms.model.*;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-public class XLSXConnector {
-    private static final Logger LOGGER = LoggerFactory.getLogger(XLSXConnector.class);
+public class XlsReader {
+    private static final Logger LOGGER = LoggerFactory.getLogger(XlsReader.class);
     private static final String STUDENTS_SHEET_NAME = "Студенты";
     private static final String UNIVERSITIES_SHEET_NAME = "Университеты";
 
-    private XLSXConnector() {}
+    private XlsReader() {}
 
     public static List<Student> getStudentsList(String fileName) throws IOException {
         List<Student> students = new ArrayList<>();
         LOGGER.debug("trying to read data from sheet '" + STUDENTS_SHEET_NAME + "' in file '" + fileName + "'");
-        InputStream is = XLSXConnector.class.getResourceAsStream(fileName);
+        InputStream is = XlsReader.class.getResourceAsStream(fileName);
         if (is == null) {
             throw new IOException("file '" + fileName + "' not found among resources");
         }
@@ -49,7 +48,7 @@ public class XLSXConnector {
     public static List<University> getUniversitiesList(String fileName) throws IOException {
         List<University> universities = new ArrayList<>();
         LOGGER.debug("trying to read data from sheet '" + UNIVERSITIES_SHEET_NAME + "' in file '" + fileName + "'");
-        InputStream is = XLSXConnector.class.getResourceAsStream(fileName);
+        InputStream is = XlsReader.class.getResourceAsStream(fileName);
         if (is == null) {
             throw new IOException("file '" + fileName + "' not found among resources");
         }
