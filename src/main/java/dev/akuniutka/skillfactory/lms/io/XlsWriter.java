@@ -14,6 +14,13 @@ import java.util.Collection;
 public class XlsWriter {
     private static final Logger LOGGER = LoggerFactory.getLogger(XlsReader.class);
     private static final String STATISTICS_SHEET_NAME = "Статистика";
+    private static final String[] HEADINGS = {
+            "Профиль обучения",
+            "Средний балл",
+            "Количество студентов",
+            "Количество университетов",
+            "Университеты"
+    };
 
     private XlsWriter() {}
 
@@ -30,16 +37,11 @@ public class XlsWriter {
             cellStyle.setFont(font);
             int rowIndex = 0;
             Row row = sheet.createRow(rowIndex++);
-            row.createCell(0, CellType.STRING).setCellValue("Профиль обучения");
-            row.getCell(0).setCellStyle(cellStyle);
-            row.createCell(1, CellType.STRING).setCellValue("Средний балл");
-            row.getCell(1).setCellStyle(cellStyle);
-            row.createCell(2, CellType.STRING).setCellValue("Количество студентов");
-            row.getCell(2).setCellStyle(cellStyle);
-            row.createCell(3, CellType.STRING).setCellValue("Количество университетов");
-            row.getCell(3).setCellStyle(cellStyle);
-            row.createCell(4, CellType.STRING).setCellValue("Университеты");
-            row.getCell(4).setCellStyle(cellStyle);
+            for (int i = 0; i < 5; i++) {
+                Cell cell = row.createCell(i, CellType.STRING);
+                cell.setCellValue(HEADINGS[i]);
+                cell.setCellStyle(cellStyle);
+            }
             for (Statistics statistics : data) {
                 row = sheet.createRow(rowIndex++);
                 row.createCell(0, CellType.STRING).setCellValue(statistics.getStudyProfile().toString());
@@ -50,7 +52,7 @@ public class XlsWriter {
             }
             LOGGER.debug("writing statistics to file '" + path + "'");
             workbook.write(out);
-            LOGGER.debug("statistics successfully wrtiten to file '" + path + "'");
+            LOGGER.debug("statistics successfully written to file '" + path + "'");
         }
     }
 }

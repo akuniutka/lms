@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class StatUtil {
     public static List<Statistics> getStatistics(List<University> universities, List<Student> students) {
@@ -43,18 +45,23 @@ public class StatUtil {
                                         .count()
                         )
                 )
-                .map(statistics -> statistics.setAvgExamScore(
-                                (float) students.stream()
-                                        .filter(student ->
-                                                universities.stream()
-                                                        .filter(u -> u.getId().equals(student.getUniversityId()))
-                                                        .findFirst()
-                                                        .filter(u -> u.getMainProfile() == statistics.getStudyProfile())
-                                                        .isPresent()
+                .map(
+                        statistics -> statistics.setAvgExamScore(
+                                BigDecimal.valueOf(
+                                                students.stream()
+                                                        .filter(
+                                                                student -> universities.stream()
+                                                                        .filter(u -> u.getId().equals(student.getUniversityId()))
+                                                                        .findFirst()
+                                                                        .filter(u -> u.getMainProfile() == statistics.getStudyProfile())
+                                                                        .isPresent()
+                                                        )
+                                                        .flatMapToDouble(student -> DoubleStream.of(student.getAvgExamScore()))
+                                                        .average()
+                                                        .orElse(0)
                                         )
-                                        .flatMapToDouble(student -> DoubleStream.of(student.getAvgExamScore()))
-                                        .average()
-                                        .orElse(0)
+                                        .setScale(2, RoundingMode.HALF_UP)
+                                        .floatValue()
                         )
                 )
                 .collect(Collectors.toList());

@@ -4,6 +4,8 @@ import dev.akuniutka.skillfactory.lms.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -43,7 +45,10 @@ class StatUtilTest {
             }
             statistics.setUniversityNames(String.join(";", universityNames));
             if (statistics.getNumberOfStudents() != 0) {
-                statistics.setAvgExamScore(statistics.getAvgExamScore() / statistics.getNumberOfStudents());
+                float avgExamScore = BigDecimal.valueOf(statistics.getAvgExamScore() / statistics.getNumberOfStudents())
+                        .setScale(2, RoundingMode.HALF_UP)
+                        .floatValue();
+                statistics.setAvgExamScore(avgExamScore);
             }
             expected.add(statistics);
         }

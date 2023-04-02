@@ -2,13 +2,15 @@ package dev.akuniutka.skillfactory.lms.model;
 
 import com.github.javafaker.Faker;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 public class TestData {
     private static final Faker FAKER = new Faker();
     private static final Random RANDOM = new Random();
     private final static StudyProfile[] STUDY_PROFILES = StudyProfile.values();
-    private final Set<String> usedUniverityIds = new HashSet<>();
+    private final Set<String> usedUniversityIds = new HashSet<>();
     private final Set<String> usedUniversityFullNames = new HashSet<>();
     private final Set<String> usedUniversityShortNames = new HashSet<>();
     private final Set<Integer> usedUniversityYearsOfFoundation = new HashSet<>();
@@ -20,7 +22,7 @@ public class TestData {
     private final Set<Integer> usedNumbersOfUniversities = new HashSet<>();
 
     public void reset() {
-        usedUniverityIds.clear();
+        usedUniversityIds.clear();
         usedUniversityFullNames.clear();
         usedUniversityShortNames.clear();
         usedUniversityYearsOfFoundation.clear();
@@ -56,7 +58,7 @@ public class TestData {
         String universityId;
         do {
             universityId = FAKER.idNumber().ssnValid();
-        } while (!usedUniverityIds.add(universityId));
+        } while (!usedUniversityIds.add(universityId));
         return universityId;
     }
 
@@ -118,8 +120,12 @@ public class TestData {
     public float getNextStudentAvgExamScore() {
         float studentAvgExamScore;
         do {
-            studentAvgExamScore = 5 - RANDOM.nextFloat() * 3;
-        } while (!usedStudentAvgExamScores.add(studentAvgExamScore));
+            studentAvgExamScore = BigDecimal.valueOf(5 - RANDOM.nextDouble() * 3)
+                    .setScale(2, RoundingMode.HALF_UP)
+                    .floatValue();
+        } while (!usedStudentAvgExamScores.add(studentAvgExamScore)
+                && usedStudentAvgExamScores.size() < 300
+        );
         return studentAvgExamScore;
     }
 
