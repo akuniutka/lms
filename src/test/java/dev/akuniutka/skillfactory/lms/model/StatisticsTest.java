@@ -37,6 +37,14 @@ class StatisticsTest {
     }
 
     @Test
+    void whenGetAvgExamScoreShouldReturnNotNull() {
+        Statistics statistics = new Statistics();
+        for (int i = 0; i < TEST_ITERATIONS; i++) {
+            assertNotNull(statistics.getAvgExamScore());
+        }
+    }
+
+    @Test
     void whenSetAvgExamScoreTheSameStatisticsObjectShouldBeReturned() {
         Statistics statistics = new Statistics();
         for (int i = 0; i < TEST_ITERATIONS; i++) {
