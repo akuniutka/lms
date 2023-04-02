@@ -24,7 +24,7 @@ public class StatUtil {
                         )
                 )
                 .filter(statistics -> statistics.getNumberOfUniversities() != 0)
-                .map(
+                .peek(
                         statistics -> statistics.setUniversityNames(
                                 universities.stream()
                                         .filter(university -> university.getMainProfile() == statistics.getStudyProfile())
@@ -32,7 +32,7 @@ public class StatUtil {
                                         .collect(Collectors.joining(";"))
                         )
                 )
-                .map(
+                .peek(
                         statistics -> statistics.setNumberOfStudents(
                                 (int) students.stream()
                                         .filter(
@@ -45,24 +45,20 @@ public class StatUtil {
                                         .count()
                         )
                 )
-                .map(
-                        statistics -> statistics.setAvgExamScore(
-                                BigDecimal.valueOf(
-                                                students.stream()
-                                                        .filter(
-                                                                student -> universities.stream()
-                                                                        .filter(u -> u.getId().equals(student.getUniversityId()))
-                                                                        .findFirst()
-                                                                        .filter(u -> u.getMainProfile() == statistics.getStudyProfile())
-                                                                        .isPresent()
-                                                        )
-                                                        .flatMapToDouble(student -> DoubleStream.of(student.getAvgExamScore()))
-                                                        .average()
-                                                        .orElse(0)
-                                        )
+                .peek(
+                        statistics -> students.stream()
+                                .filter(
+                                        student -> universities.stream()
+                                                .filter(u -> u.getId().equals(student.getUniversityId()))
+                                                .findFirst()
+                                                .filter(u -> u.getMainProfile() == statistics.getStudyProfile())
+                                                .isPresent()
+                                )
+                                .flatMapToDouble(student -> DoubleStream.of(student.getAvgExamScore()))
+                                .average()
+                                .ifPresent(d -> statistics.setAvgExamScore(BigDecimal.valueOf(d)
                                         .setScale(2, RoundingMode.HALF_UP)
-                                        .floatValue()
-                        )
+                                        .doubleValue()))
                 )
                 .collect(Collectors.toList());
     }

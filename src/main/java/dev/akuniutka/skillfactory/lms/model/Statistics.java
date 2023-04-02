@@ -1,8 +1,10 @@
 package dev.akuniutka.skillfactory.lms.model;
 
+import java.util.OptionalDouble;
+
 public class Statistics {
     private StudyProfile studyProfile;
-    private float avgExamScore;
+    private double avgExamScore = Double.NaN;
     private int numberOfStudents;
     private int numberOfUniversities;
     private String universityNames;
@@ -19,11 +21,15 @@ public class Statistics {
         return this;
     }
 
-    public float getAvgExamScore() {
-        return avgExamScore;
+    public OptionalDouble getAvgExamScore() {
+        if (Double.isNaN(avgExamScore)) {
+            return OptionalDouble.empty();
+        } else {
+            return OptionalDouble.of(avgExamScore);
+        }
     }
 
-    public Statistics setAvgExamScore(float avgExamScore) {
+    public Statistics setAvgExamScore(double avgExamScore) {
         this.avgExamScore = avgExamScore;
         return this;
     }
@@ -59,7 +65,7 @@ public class Statistics {
     public String toString() {
         return "Statistics{" +
                 "studyProfile='" + studyProfile.getProfileName() + '\'' +
-                ", avgExamScore=" + avgExamScore +
+                ", avgExamScore=" + (getAvgExamScore().isPresent() ? avgExamScore : "null") +
                 ", numberOfStudents=" + numberOfStudents +
                 ", numberOfUniversities=" + numberOfUniversities +
                 ", universityNames='" + universityNames + '\'' +

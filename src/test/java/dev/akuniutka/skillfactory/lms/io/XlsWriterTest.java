@@ -3,6 +3,7 @@ package dev.akuniutka.skillfactory.lms.io;
 import dev.akuniutka.skillfactory.lms.model.Statistics;
 import dev.akuniutka.skillfactory.lms.model.StudyProfile;
 import dev.akuniutka.skillfactory.lms.model.TestData;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -107,10 +108,13 @@ class XlsWriterTest {
             if (row.getRowNum() != 0) {
                 Statistics statistics = new Statistics()
                         .setStudyProfile(StudyProfile.valueOf(row.getCell(0).getStringCellValue()))
-                        .setAvgExamScore((float) row.getCell(1).getNumericCellValue())
                         .setNumberOfStudents((int) row.getCell(2).getNumericCellValue())
                         .setNumberOfUniversities((int) row.getCell(3).getNumericCellValue())
                         .setUniversityNames(row.getCell(4).getStringCellValue());
+                Cell cell = row.getCell(1);
+                if (cell != null) {
+                    statistics.setAvgExamScore(row.getCell(1).getNumericCellValue());
+                }
                 actual.add(statistics);
             }
         }

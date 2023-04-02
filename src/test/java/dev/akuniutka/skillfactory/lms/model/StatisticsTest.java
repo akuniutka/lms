@@ -40,7 +40,7 @@ class StatisticsTest {
     void whenSetAvgExamScoreTheSameStatisticsObjectShouldBeReturned() {
         Statistics statistics = new Statistics();
         for (int i = 0; i < TEST_ITERATIONS; i++) {
-            float avgExamScore = testData.getNextStudentAvgExamScore();
+            double avgExamScore = testData.getNextStudentAvgExamScore();
             assertSame(statistics, statistics.setAvgExamScore(avgExamScore));
         }
     }
@@ -49,9 +49,10 @@ class StatisticsTest {
     void whenSetAvgExamScoreGetAvgExamScoreShouldReturnThatValue() {
         Statistics statistics = new Statistics();
         for (int i = 0; i < TEST_ITERATIONS; i++) {
-            float avgExamScore = testData.getNextStudentAvgExamScore();
+            double avgExamScore = testData.getNextStudentAvgExamScore();
             statistics.setAvgExamScore(avgExamScore);
-            assertEquals(avgExamScore, statistics.getAvgExamScore());
+            assertTrue(statistics.getAvgExamScore().isPresent());
+            assertEquals(avgExamScore, statistics.getAvgExamScore().getAsDouble());
         }
     }
 
@@ -124,7 +125,7 @@ class StatisticsTest {
     void toStringShouldReturnStudyProfileAvgExamScoreNumberOfStudentsNumberOfUniversitiesUniversityNames() {
         for (int i = 0; i < TEST_ITERATIONS; i++) {
             StudyProfile studyProfile = testData.getNextUniversityMainProfile();
-            float avgExamScore = testData.getNextStudentAvgExamScore();
+            double avgExamScore = testData.getNextStudentAvgExamScore();
             int numberOfStudents = testData.getNextNumberOfStudents();
             int numberOfUniversities = testData.getNextNumberOfUniversities();
             List<String> universityNames = new ArrayList<>();
@@ -133,12 +134,26 @@ class StatisticsTest {
             }
             String expected = "Statistics{" +
                     "studyProfile='" + studyProfile.getProfileName() + '\'' +
-                    ", avgExamScore=" + avgExamScore +
+                    ", avgExamScore=null" +
                     ", numberOfStudents=" + numberOfStudents +
                     ", numberOfUniversities=" + numberOfUniversities +
                     ", universityNames='" + String.join(";", universityNames) + '\'' +
                     '}';
             String actual = new Statistics()
+                    .setStudyProfile(studyProfile)
+                    .setNumberOfStudents(numberOfStudents)
+                    .setNumberOfUniversities(numberOfUniversities)
+                    .setUniversityNames(String.join(";", universityNames))
+                    .toString();
+            assertEquals(expected, actual);
+            expected = "Statistics{" +
+                    "studyProfile='" + studyProfile.getProfileName() + '\'' +
+                    ", avgExamScore=" + avgExamScore +
+                    ", numberOfStudents=" + numberOfStudents +
+                    ", numberOfUniversities=" + numberOfUniversities +
+                    ", universityNames='" + String.join(";", universityNames) + '\'' +
+                    '}';
+            actual = new Statistics()
                     .setStudyProfile(studyProfile)
                     .setAvgExamScore(avgExamScore)
                     .setNumberOfStudents(numberOfStudents)

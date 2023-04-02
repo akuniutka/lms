@@ -169,11 +169,19 @@ public class TestData {
         for (int i = 0; i < numberOfUniversities; i++) {
             universityNames.add(getNextUniversityFullName());
         }
-        return new Statistics()
-                .setStudyProfile(getNextUniversityMainProfile())
-                .setAvgExamScore(getNextStudentAvgExamScore())
-                .setNumberOfStudents(getNextNumberOfStudents())
-                .setNumberOfUniversities(numberOfUniversities)
-                .setUniversityNames(String.join(";", universityNames));
+        if (RANDOM.nextInt(2) == 1) {
+            return new Statistics()
+                    .setStudyProfile(getNextUniversityMainProfile())
+                    .setAvgExamScore(getNextStudentAvgExamScore())
+                    .setNumberOfStudents(getNextNumberOfStudents())
+                    .setNumberOfUniversities(numberOfUniversities)
+                    .setUniversityNames(String.join(";", universityNames));
+        } else {
+            return new Statistics()
+                    .setStudyProfile(getNextUniversityMainProfile())
+                    .setNumberOfStudents(getNextNumberOfStudents())
+                    .setNumberOfUniversities(numberOfUniversities)
+                    .setUniversityNames(String.join(";", universityNames));
+        }
     }
 }

@@ -26,6 +26,7 @@ class StatUtilTest {
         List<University> universities = new ArrayList<>();
         List<Student> students = new ArrayList<>();
         List<Statistics> expected = new ArrayList<>();
+        double avgExamScore = 0.0;
         for (int i = 0; i < TEST_ITERATIONS && i < StudyProfile.values().length; i++) {
             StudyProfile studyProfile = testData.getNextUniversityMainProfile();
             Statistics statistics = new Statistics();
@@ -39,16 +40,17 @@ class StatUtilTest {
                 for (int k = 0; k < j; k++) {
                     Student student = testData.createRandomStudent(university.getId());
                     statistics.setNumberOfStudents(statistics.getNumberOfStudents() + 1);
-                    statistics.setAvgExamScore(statistics.getAvgExamScore() + student.getAvgExamScore());
+                    avgExamScore += student.getAvgExamScore();
                     students.add(student);
                 }
             }
             statistics.setUniversityNames(String.join(";", universityNames));
             if (statistics.getNumberOfStudents() != 0) {
-                float avgExamScore = BigDecimal.valueOf(statistics.getAvgExamScore() / statistics.getNumberOfStudents())
-                        .setScale(2, RoundingMode.HALF_UP)
-                        .floatValue();
-                statistics.setAvgExamScore(avgExamScore);
+                statistics.setAvgExamScore(
+                        BigDecimal.valueOf(avgExamScore / statistics.getNumberOfStudents())
+                                .setScale(2, RoundingMode.HALF_UP)
+                                .doubleValue()
+                );
             }
             expected.add(statistics);
         }
