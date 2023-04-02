@@ -7,6 +7,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
@@ -23,61 +25,107 @@ class XlsWriterTest {
     private static final String STATISTICS_FILE_NAME = "/statisticsTestData.xlsx";
     private static final String STATISTICS_SHEET_NAME = "Статистика";
     private static final short FONT_SIZE = 13;
+    private static final TestData TEST_DATA = new TestData();
+    private static final List<Statistics> EXPECTED = new ArrayList<>();
+    private static Workbook workbook;
+    private static Sheet sheet;
 
-    private final TestData testData = new TestData();
-
-    @Test
-    void whenSaveStatisticShouldCreateCorrectFile() throws IOException {
+    @BeforeAll
+    static void whenSaveStatisticsFileShouldExistAndContainStatisticsSheet() throws IOException {
         URL url = XlsReaderTest.class.getResource(STATISTICS_FILE_NAME);
         if (url == null) {
             fail("cannot find test data file");
             return;
         }
-        List<Statistics> expected = new ArrayList<>();
         for (int i = 0; i < TEST_ITERATIONS; i++) {
-            expected.add(testData.createRandomStatistics());
+            EXPECTED.add(TEST_DATA.createRandomStatistics());
         }
-        XlsWriter.saveStatistics(url.getPath(), expected);
+        XlsWriter.saveStatistics(url.getPath(), EXPECTED);
+        try (FileInputStream in = new FileInputStream(url.getPath())) {
+            workbook = new XSSFWorkbook(in);
+        } catch (IOException exception) {
+            fail("output file not found or corrupted");
+        }
+        sheet = workbook.getSheet(STATISTICS_SHEET_NAME);
+        assertNotNull(sheet);
+    }
+
+    @Test
+    void whenSaveStatisticsSheetShouldContainCorrectHeadingsRow() {
+        Row row = sheet.getRow(0);
+        assertAll(
+                () -> assertEquals("Профиль обучения", row.getCell(0).getStringCellValue()),
+                () -> assertEquals("Средний балл", row.getCell(1).getStringCellValue()),
+                () -> assertEquals("Количество студентов", row.getCell(2).getStringCellValue()),
+                () -> assertEquals("Количество университетов", row.getCell(3).getStringCellValue()),
+                () -> assertEquals("Университеты", row.getCell(4).getStringCellValue())
+        );
+    }
+
+    @Test
+    void whenSaveStatisticsHeadingsRowShouldBeBold() {
+        Row row = sheet.getRow(0);
+        assertAll(
+                () -> assertTrue(workbook.getFontAt(row.getCell(0).getCellStyle().getFontIndex()).getBold()),
+                () -> assertTrue(workbook.getFontAt(row.getCell(1).getCellStyle().getFontIndex()).getBold()),
+                () -> assertTrue(workbook.getFontAt(row.getCell(2).getCellStyle().getFontIndex()).getBold()),
+                () -> assertTrue(workbook.getFontAt(row.getCell(3).getCellStyle().getFontIndex()).getBold()),
+                () -> assertTrue(workbook.getFontAt(row.getCell(4).getCellStyle().getFontIndex()).getBold())
+        );
+    }
+
+    @Test
+    void whenSaveStatisticsHeadingsFontShouldBeOfCorrectSize() {
+        Row row = sheet.getRow(0);
+        assertAll(
+                () -> assertEquals(
+                        FONT_SIZE,
+                        workbook.getFontAt(row.getCell(0).getCellStyle().getFontIndex()).getFontHeightInPoints()
+                ),
+                () -> assertEquals(
+                        FONT_SIZE,
+                        workbook.getFontAt(row.getCell(1).getCellStyle().getFontIndex()).getFontHeightInPoints()
+                ),
+                () -> assertEquals(
+                        FONT_SIZE,
+                        workbook.getFontAt(row.getCell(2).getCellStyle().getFontIndex()).getFontHeightInPoints()
+                ),
+                () -> assertEquals(
+                        FONT_SIZE,
+                        workbook.getFontAt(row.getCell(3).getCellStyle().getFontIndex()).getFontHeightInPoints()
+                ),
+                () -> assertEquals(
+                        FONT_SIZE,
+                        workbook.getFontAt(row.getCell(4).getCellStyle().getFontIndex()).getFontHeightInPoints()
+                )
+        );
+    }
+
+    @Test
+    void whenSaveStatisticSheetShouldContainCorrectData() {
         List<Statistics> actual = new ArrayList<>();
-        try (FileInputStream in = new FileInputStream(url.getPath());
-             Workbook workbook = new XSSFWorkbook(in)
-        ) {
-            Sheet sheet = workbook.getSheet(STATISTICS_SHEET_NAME);
-            assertNotNull(sheet);
-            for (Row row : sheet) {
-                int i = row.getRowNum();
-                if (i == 0) {
-                    assertEquals("Профиль обучения", row.getCell(0).getStringCellValue());
-                    assertTrue(workbook.getFontAt(row.getCell(0).getCellStyle().getFontIndex()).getBold());
-                    assertEquals(FONT_SIZE, workbook.getFontAt(row.getCell(0).getCellStyle().getFontIndex()).getFontHeightInPoints());
-                    assertEquals("Средний балл", row.getCell(1).getStringCellValue());
-                    assertTrue(workbook.getFontAt(row.getCell(1).getCellStyle().getFontIndex()).getBold());
-                    assertEquals(FONT_SIZE, workbook.getFontAt(row.getCell(1).getCellStyle().getFontIndex()).getFontHeightInPoints());
-                    assertEquals("Количество студентов", row.getCell(2).getStringCellValue());
-                    assertTrue(workbook.getFontAt(row.getCell(2).getCellStyle().getFontIndex()).getBold());
-                    assertEquals(FONT_SIZE, workbook.getFontAt(row.getCell(2).getCellStyle().getFontIndex()).getFontHeightInPoints());
-                    assertEquals("Количество университетов", row.getCell(3).getStringCellValue());
-                    assertTrue(workbook.getFontAt(row.getCell(3).getCellStyle().getFontIndex()).getBold());
-                    assertEquals(FONT_SIZE, workbook.getFontAt(row.getCell(3).getCellStyle().getFontIndex()).getFontHeightInPoints());
-                    assertEquals("Университеты", row.getCell(4).getStringCellValue());
-                    assertTrue(workbook.getFontAt(row.getCell(4).getCellStyle().getFontIndex()).getBold());
-                    assertEquals(FONT_SIZE, workbook.getFontAt(row.getCell(4).getCellStyle().getFontIndex()).getFontHeightInPoints());
-                } else {
-                    Statistics statistics = new Statistics()
-                            .setStudyProfile(StudyProfile.valueOf(row.getCell(0).getStringCellValue()))
-                            .setAvgExamScore((float) row.getCell(1).getNumericCellValue())
-                            .setNumberOfStudents((int) row.getCell(2).getNumericCellValue())
-                            .setNumberOfUniversities((int) row.getCell(3).getNumericCellValue())
-                            .setUniversityNames(Arrays.asList(row.getCell(4).getStringCellValue().split("\n")));
-                    actual.add(statistics);
-                }
+        for (Row row : sheet) {
+            if (row.getRowNum() != 0) {
+                Statistics statistics = new Statistics()
+                        .setStudyProfile(StudyProfile.valueOf(row.getCell(0).getStringCellValue()))
+                        .setAvgExamScore((float) row.getCell(1).getNumericCellValue())
+                        .setNumberOfStudents((int) row.getCell(2).getNumericCellValue())
+                        .setNumberOfUniversities((int) row.getCell(3).getNumericCellValue())
+                        .setUniversityNames(Arrays.asList(row.getCell(4).getStringCellValue().split("\n")));
+                actual.add(statistics);
             }
         }
-        assertEquals(expected.size(), actual.size());
-        for (int i = 0; i < expected.size(); i++) {
-            assertEquals(expected.get(i).toString(), actual.get(i).toString());
-            assertEquals(expected.get(i).getStudyProfile(), actual.get(i).getStudyProfile());
+        assertEquals(EXPECTED.size(), actual.size());
+        for (int i = 0; i < EXPECTED.size(); i++) {
+            assertEquals(EXPECTED.get(i).toString(), actual.get(i).toString());
+            assertEquals(EXPECTED.get(i).getStudyProfile(), actual.get(i).getStudyProfile());
+        }
+    }
 
+    @AfterAll
+    static void closeTestWorkbook() throws IOException {
+        if (workbook != null) {
+            workbook.close();
         }
     }
 }
