@@ -131,6 +131,14 @@ public class TestData {
                 .setAvgExamScore(getNextStudentAvgExamScore());
     }
 
+    public Student createRandomStudent(String universityId) {
+        return new Student()
+                .setFullName(getNextStudentFullName())
+                .setUniversityId(universityId)
+                .setCurrentCourseNumber(getNextStudentCurrentCourseNumber())
+                .setAvgExamScore(getNextStudentAvgExamScore());
+    }
+
     public University createRandomUniversity() {
         return new University()
                 .setId(getNextUniversityID())
@@ -138,6 +146,15 @@ public class TestData {
                 .setShortName(getNextUniversityShortName())
                 .setYearOfFoundation(getNextUniversityYearOfFoundation())
                 .setMainProfile(getNextUniversityMainProfile());
+    }
+
+    public University createRandomUniversity(StudyProfile mainProfile) {
+        return new University()
+                .setId(getNextUniversityID())
+                .setFullName(getNextUniversityFullName())
+                .setShortName(getNextUniversityShortName())
+                .setYearOfFoundation(getNextUniversityYearOfFoundation())
+                .setMainProfile(mainProfile);
     }
 
     public Statistics createRandomStatistics() {
@@ -151,6 +168,6 @@ public class TestData {
                 .setAvgExamScore(getNextStudentAvgExamScore())
                 .setNumberOfStudents(getNextNumberOfStudents())
                 .setNumberOfUniversities(numberOfUniversities)
-                .setUniversityNames(universityNames);
+                .setUniversityNames(String.join(";", universityNames));
     }
 }

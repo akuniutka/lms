@@ -15,7 +15,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -111,7 +110,7 @@ class XlsWriterTest {
                         .setAvgExamScore((float) row.getCell(1).getNumericCellValue())
                         .setNumberOfStudents((int) row.getCell(2).getNumericCellValue())
                         .setNumberOfUniversities((int) row.getCell(3).getNumericCellValue())
-                        .setUniversityNames(Arrays.asList(row.getCell(4).getStringCellValue().split("\n")));
+                        .setUniversityNames(row.getCell(4).getStringCellValue());
                 actual.add(statistics);
             }
         }

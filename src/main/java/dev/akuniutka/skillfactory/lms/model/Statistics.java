@@ -1,14 +1,11 @@
 package dev.akuniutka.skillfactory.lms.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Statistics {
     private StudyProfile studyProfile;
     private float avgExamScore;
     private int numberOfStudents;
     private int numberOfUniversities;
-    private List<String> universityNames = new ArrayList<>();
+    private String universityNames;
 
     public Statistics() {
     }
@@ -49,11 +46,11 @@ public class Statistics {
         return this;
     }
 
-    public List<String> getUniversityNames() {
+    public String getUniversityNames() {
         return universityNames;
     }
 
-    public Statistics setUniversityNames(List<String> universityNames) {
+    public Statistics setUniversityNames(String universityNames) {
         this.universityNames = universityNames;
         return this;
     }
@@ -65,7 +62,7 @@ public class Statistics {
                 ", avgExamScore=" + avgExamScore +
                 ", numberOfStudents=" + numberOfStudents +
                 ", numberOfUniversities=" + numberOfUniversities +
-                ", universityNames={'" + String.join("', '", universityNames) + "'}" +
+                ", universityNames='" + universityNames + '\'' +
                 '}';
     }
 }

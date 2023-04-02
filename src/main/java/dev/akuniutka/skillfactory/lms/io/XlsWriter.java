@@ -46,7 +46,7 @@ public class XlsWriter {
                 row.createCell(1, CellType.NUMERIC).setCellValue(statistics.getAvgExamScore());
                 row.createCell(2, CellType.NUMERIC).setCellValue(statistics.getNumberOfStudents());
                 row.createCell(3, CellType.NUMERIC).setCellValue(statistics.getNumberOfUniversities());
-                row.createCell(4, CellType.STRING).setCellValue(String.join("\n", statistics.getUniversityNames()));
+                row.createCell(4, CellType.STRING).setCellValue(statistics.getUniversityNames());
             }
             LOGGER.debug("writing statistics to file '" + path + "'");
             workbook.write(out);

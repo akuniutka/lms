@@ -95,27 +95,28 @@ class StatisticsTest {
 
     @Test
     void whenSetUniversityNamesTheSameStatisticsObjectShouldBeReturned() {
-        List<String> universityNames = new ArrayList<>();
-        for (int i = 0; i < TEST_ITERATIONS; i++) {
-            universityNames.add(testData.getNextUniversityFullName());
-        }
         Statistics statistics = new Statistics();
-        assertSame(statistics, statistics.setUniversityNames(universityNames));
-
+        for (int i = 0; i < TEST_ITERATIONS; i++) {
+            List<String> universityNames = new ArrayList<>();
+            for (int j = 0; j < TEST_ITERATIONS; j++) {
+                universityNames.add(testData.getNextUniversityFullName());
+            }
+            String expected = String.join(";", universityNames);
+            assertSame(statistics, statistics.setUniversityNames(expected));
+        }
     }
 
     @Test
     void whenSetUniversityNamesGetUniversityNamesShouldReturnCorrectList() {
-        List<String> expected = new ArrayList<>();
-        for (int i = 0; i < TEST_ITERATIONS; i++) {
-            expected.add(testData.getNextUniversityFullName());
-        }
         Statistics statistics = new Statistics();
-        statistics.setUniversityNames(expected);
-        List<String> actual = statistics.getUniversityNames();
-        assertEquals(expected.size(), actual.size());
-        for (int i = 0; i < expected.size(); i++) {
-            assertEquals(expected.get(i), actual.get(i));
+        for (int i = 0; i < TEST_ITERATIONS; i++) {
+            List<String> universityNames = new ArrayList<>();
+            for (int j = 0; j < TEST_ITERATIONS; j++) {
+                universityNames.add(testData.getNextUniversityFullName());
+            }
+            String expected = String.join(";", universityNames);
+            statistics.setUniversityNames(expected);
+            assertEquals(expected, statistics.getUniversityNames());
         }
     }
 
@@ -135,14 +136,14 @@ class StatisticsTest {
                     ", avgExamScore=" + avgExamScore +
                     ", numberOfStudents=" + numberOfStudents +
                     ", numberOfUniversities=" + numberOfUniversities +
-                    ", universityNames={'" + String.join("', '", universityNames) + "'}" +
+                    ", universityNames='" + String.join(";", universityNames) + '\'' +
                     '}';
             String actual = new Statistics()
                     .setStudyProfile(studyProfile)
                     .setAvgExamScore(avgExamScore)
                     .setNumberOfStudents(numberOfStudents)
                     .setNumberOfUniversities(numberOfUniversities)
-                    .setUniversityNames(universityNames)
+                    .setUniversityNames(String.join(";", universityNames))
                     .toString();
             assertEquals(expected, actual);
         }
