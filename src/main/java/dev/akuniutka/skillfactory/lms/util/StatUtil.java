@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class StatUtil {
+    private StatUtil() {}
+
     public static List<Statistics> getStatistics(List<University> universities, List<Student> students) {
         return Arrays.stream(StudyProfile.values())
                 .map(studyProfile -> new Statistics().setStudyProfile(studyProfile))
