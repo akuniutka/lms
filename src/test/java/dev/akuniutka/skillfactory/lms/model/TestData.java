@@ -18,8 +18,8 @@ public class TestData {
     private final Set<String> usedStudentFullNames = new HashSet<>();
     private final Set<Integer> usedStudentCurrentCourseNumbers = new HashSet<>();
     private final Set<Float> usedStudentAvgExamScores = new HashSet<>();
-    private final Set<Integer> usedNumbersOfStudents = new HashSet<>();
-    private final Set<Integer> usedNumbersOfUniversities = new HashSet<>();
+    private final Set<Long> usedNumbersOfStudents = new HashSet<>();
+    private final Set<Long> usedNumbersOfUniversities = new HashSet<>();
 
     public void reset() {
         usedUniversityIds.clear();
@@ -34,20 +34,20 @@ public class TestData {
         usedNumbersOfUniversities.clear();
     }
 
-    public Integer getNextNumberOfStudents() {
-        int numberOfStudents;
+    public long getNextNumberOfStudents() {
+        long numberOfStudents;
         do {
-            numberOfStudents = RANDOM.nextInt(0, 50);
+            numberOfStudents = RANDOM.nextLong(0, 50);
         } while (!usedNumbersOfStudents.add(numberOfStudents)
                 && usedNumbersOfStudents.size() < 49
         );
         return numberOfStudents;
     }
 
-    public Integer getNextNumberOfUniversities() {
-        int numberOfUniversities;
+    public long getNextNumberOfUniversities() {
+        long numberOfUniversities;
         do {
-            numberOfUniversities = RANDOM.nextInt(1, 50);
+            numberOfUniversities = RANDOM.nextLong(1, 50);
         } while (!usedNumbersOfUniversities.add(numberOfUniversities)
                 && usedNumbersOfUniversities.size() < 48
         );
@@ -164,9 +164,9 @@ public class TestData {
     }
 
     public Statistics createRandomStatistics() {
-        int numberOfUniversities = getNextNumberOfUniversities();
+        long numberOfUniversities = getNextNumberOfUniversities();
         List<String> universityNames = new ArrayList<>();
-        for (int i = 0; i < numberOfUniversities; i++) {
+        for (long i = 0; i < numberOfUniversities; i++) {
             universityNames.add(getNextUniversityFullName());
         }
         if (RANDOM.nextInt(2) == 1) {

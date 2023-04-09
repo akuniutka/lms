@@ -20,7 +20,7 @@ public class StatUtil {
                 .map(studyProfile -> new Statistics().setStudyProfile(studyProfile))
                 .map(
                         statistics -> statistics.setNumberOfUniversities(
-                                (int) universities.stream()
+                                universities.stream()
                                         .filter(university -> university.getMainProfile() == statistics.getStudyProfile())
                                         .count()
                         )
@@ -36,7 +36,7 @@ public class StatUtil {
                 )
                 .peek(
                         statistics -> statistics.setNumberOfStudents(
-                                (int) students.stream()
+                                students.stream()
                                         .filter(
                                                 student -> universities.stream()
                                                         .filter(u -> u.getId().equals(student.getUniversityId()))

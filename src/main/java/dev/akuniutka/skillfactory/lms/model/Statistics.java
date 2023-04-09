@@ -5,8 +5,8 @@ import java.util.OptionalDouble;
 public class Statistics {
     private StudyProfile studyProfile;
     private double avgExamScore = Double.NaN;
-    private int numberOfStudents;
-    private int numberOfUniversities;
+    private long numberOfStudents;
+    private long numberOfUniversities;
     private String universityNames;
 
     public Statistics() {
@@ -34,20 +34,20 @@ public class Statistics {
         return this;
     }
 
-    public int getNumberOfStudents() {
+    public long getNumberOfStudents() {
         return numberOfStudents;
     }
 
-    public Statistics setNumberOfStudents(int numberOfStudents) {
+    public Statistics setNumberOfStudents(long numberOfStudents) {
         this.numberOfStudents = numberOfStudents;
         return this;
     }
 
-    public int getNumberOfUniversities() {
+    public long getNumberOfUniversities() {
         return numberOfUniversities;
     }
 
-    public Statistics setNumberOfUniversities(int numberOfUniversities) {
+    public Statistics setNumberOfUniversities(long numberOfUniversities) {
         this.numberOfUniversities = numberOfUniversities;
         return this;
     }

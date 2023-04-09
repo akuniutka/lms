@@ -68,7 +68,7 @@ class StatisticsTest {
     void whenSetNumberOfStudentsTheSameStatisticsObjectShouldBeReturned() {
         Statistics statistics = new Statistics();
         for (int i = 0; i < TEST_ITERATIONS; i++) {
-            int numberOfStudents = testData.getNextNumberOfStudents();
+            long numberOfStudents = testData.getNextNumberOfStudents();
             assertSame(statistics, statistics.setNumberOfStudents(numberOfStudents));
         }
     }
@@ -77,7 +77,7 @@ class StatisticsTest {
     void whenSetNumberOfStudentsGetNumberOfStudentsShouldReturnThatValue() {
         Statistics statistics = new Statistics();
         for (int i = 0; i < TEST_ITERATIONS; i++) {
-            int numberOfStudents = testData.getNextNumberOfStudents();
+            long numberOfStudents = testData.getNextNumberOfStudents();
             statistics.setNumberOfStudents(numberOfStudents);
             assertEquals(numberOfStudents, statistics.getNumberOfStudents());
         }
@@ -87,7 +87,7 @@ class StatisticsTest {
     void whenSetNumberOfUniversitiesTheSameStatisticsObjectShouldBeReturned() {
         Statistics statistics = new Statistics();
         for (int i = 0; i < TEST_ITERATIONS; i++) {
-            int numberOfUniversities = testData.getNextNumberOfUniversities();
+            long numberOfUniversities = testData.getNextNumberOfUniversities();
             assertSame(statistics, statistics.setNumberOfUniversities(numberOfUniversities));
         }
     }
@@ -96,7 +96,7 @@ class StatisticsTest {
     void whenSetNumberOfUniversitiesGetNumberOfUniversitiesShouldReturnThatValue() {
         Statistics statistics = new Statistics();
         for (int i = 0; i < TEST_ITERATIONS; i++) {
-            int numberOfUniversities = testData.getNextNumberOfUniversities();
+            long numberOfUniversities = testData.getNextNumberOfUniversities();
             statistics.setNumberOfUniversities(numberOfUniversities);
             assertEquals(numberOfUniversities, statistics.getNumberOfUniversities());
         }
@@ -134,10 +134,10 @@ class StatisticsTest {
         for (int i = 0; i < TEST_ITERATIONS; i++) {
             StudyProfile studyProfile = testData.getNextUniversityMainProfile();
             double avgExamScore = testData.getNextStudentAvgExamScore();
-            int numberOfStudents = testData.getNextNumberOfStudents();
-            int numberOfUniversities = testData.getNextNumberOfUniversities();
+            long numberOfStudents = testData.getNextNumberOfStudents();
+            long numberOfUniversities = testData.getNextNumberOfUniversities();
             List<String> universityNames = new ArrayList<>();
-            for (int j = 1; j < numberOfUniversities; j++) {
+            for (long j = 1; j < numberOfUniversities; j++) {
                 universityNames.add(testData.getNextUniversityFullName());
             }
             String expected = "Statistics{" +
