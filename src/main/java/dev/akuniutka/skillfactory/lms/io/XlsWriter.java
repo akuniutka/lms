@@ -1,7 +1,6 @@
 package dev.akuniutka.skillfactory.lms.io;
 
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
+import java.util.logging.Logger;
 
 import org.apache.poi.ss.usermodel.*;
 
@@ -12,7 +11,8 @@ import java.io.IOException;
 import java.util.Collection;
 
 public class XlsWriter {
-    private static final Logger LOGGER = LoggerFactory.getLogger(XlsReader.class);
+    private static final Logger LOGGER = Logger.getLogger(XlsWriter.class.getName());
+
     private static final String STATISTICS_SHEET_NAME = "Статистика";
     private static final String[] HEADINGS = {
             "Профиль обучения",
@@ -24,8 +24,8 @@ public class XlsWriter {
 
     private XlsWriter() {}
 
-    public static void saveStatistics(String path, Collection<Statistics> data) throws IOException {
-        LOGGER.debug("trying to create a workbook and file '" + path + "'");
+    public static void saveStatistics(String path, Collection<Statistics> data) {
+        LOGGER.fine("creating a workbook and file '" + path + "'");
         try (Workbook workbook = WorkbookFactory.create(true);
              FileOutputStream out = new FileOutputStream(path)
         ) {
@@ -52,9 +52,12 @@ public class XlsWriter {
                 row.createCell(3, CellType.NUMERIC).setCellValue(statistics.getNumberOfUniversities());
                 row.createCell(4, CellType.STRING).setCellValue(statistics.getUniversityNames());
             }
-            LOGGER.debug("writing statistics to file '" + path + "'");
+            LOGGER.fine("writing statistics to file '" + path + "'");
             workbook.write(out);
-            LOGGER.debug("statistics successfully written to file '" + path + "'");
+            LOGGER.fine("statistics successfully written to file '" + path + "'");
+        } catch (IOException e) {
+            LOGGER.severe("error writing to file '" + path + "'");
+            throw new RuntimeException("error writing to file '" + path + "'");
         }
     }
 }

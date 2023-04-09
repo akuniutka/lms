@@ -1,8 +1,6 @@
 package dev.akuniutka.skillfactory.lms.util;
 
 import dev.akuniutka.skillfactory.lms.comparator.*;
-import dev.akuniutka.skillfactory.lms.comparator.StudentComparatorType;
-import dev.akuniutka.skillfactory.lms.comparator.UniversityComparatorType;
 
 public class Comparators {
     private Comparators() {}
