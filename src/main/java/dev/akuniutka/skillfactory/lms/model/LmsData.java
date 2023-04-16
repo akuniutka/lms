@@ -22,4 +22,8 @@ public class LmsData {
     @XmlElement(name = "statisticsEntry")
     private List<Statistics> statistics;
     private Date processedAt;
+
+    public LmsData() {
+        processedAt = new Date();
+    }
 }

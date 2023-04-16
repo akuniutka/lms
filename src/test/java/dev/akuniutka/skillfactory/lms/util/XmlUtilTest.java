@@ -4,14 +4,17 @@ import dev.akuniutka.skillfactory.lms.comparator.StudentComparatorType;
 import dev.akuniutka.skillfactory.lms.comparator.UniversityComparatorType;
 import dev.akuniutka.skillfactory.lms.io.XlsReader;
 import dev.akuniutka.skillfactory.lms.model.LmsData;
+import dev.akuniutka.skillfactory.lms.model.Statistics;
+import dev.akuniutka.skillfactory.lms.model.Student;
+import dev.akuniutka.skillfactory.lms.model.University;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -22,8 +25,6 @@ class XmlUtilTest {
     private static final String FILE_NAME_PREFIX = "req ";
     private static final String FILE_NAME_SUFFIX = ".xml";
     private static final String DATE_FORMAT_STRING = "yyyy-MM-dd HH_mm_ss.SSSZ";
-    private static Date testStartDate;
-    private static Date testFinishDate;
     private static String fileName;
     private static Date fileDate;
     private static final String TEST_DATA_FILE_NAME = "/universityInfo.xlsx";
@@ -31,32 +32,31 @@ class XmlUtilTest {
 
 
     @BeforeAll
-    static void whenMarshalShouldCreateOneNewFile() {
-        LmsData lmsData = new LmsData();
+    static void whenMarshalShouldCreateOneNewFile()  {
+        List<Student> students;
+        List<University> universities;
         try {
-            lmsData.setStudents(XlsReader.getStudentsList(TEST_DATA_FILE_NAME));
-            lmsData.setUniversities(XlsReader.getUniversitiesList(TEST_DATA_FILE_NAME));
+            students = XlsReader.getStudentsList(TEST_DATA_FILE_NAME);
+            universities = XlsReader.getUniversitiesList(TEST_DATA_FILE_NAME);
         } catch (RuntimeException e) {
             fail("cannot read test data");
             return;
         }
-        lmsData.getStudents().sort(
-                Comparators.getComparator(StudentComparatorType.BY_AVG_EXAM_SCORE_DESC));
-        lmsData.getUniversities().sort(
-                Comparators.getComparator(UniversityComparatorType.BY_YEAR_OF_FOUNDATION));
-        lmsData.setStatistics(StatUtil.getStatistics(
-                lmsData.getUniversities(),
-                lmsData.getStudents()
-        ));
+        students.sort(Comparators.getComparator(StudentComparatorType.BY_AVG_EXAM_SCORE_DESC));
+        universities.sort(Comparators.getComparator(UniversityComparatorType.BY_YEAR_OF_FOUNDATION));
+        List<Statistics> statistics = StatUtil.getStatistics(universities, students);
+        LmsData lmsData = new LmsData();
+        lmsData.setStudents(students);
+        lmsData.setUniversities(universities);
+        lmsData.setStatistics(statistics);
+        fileDate = lmsData.getProcessedAt();
         File file = new File(OUTPUT_DIR);
         String[] filesBefore = file.list();
-        testStartDate = new Date();
         try {
             XmlUtil.marshal(lmsData);
-        } catch (FileNotFoundException e) {
-            fail("XMLUtil.marshal() threw an exception");
+        } catch (FileNotFoundException | JAXBException e) {
+            fail("XMLUtil.marshal() threw an exception", e);
         }
-        testFinishDate = new Date();
         String[] filesAfter = file.list();
         assertNotNull(filesAfter);
         List<String> newFiles = new ArrayList<>(Arrays.asList(filesAfter));
@@ -70,20 +70,8 @@ class XmlUtilTest {
     @Test
     void whenMarshalFileShouldhaveCorrectName() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_STRING);
-        int timestampLength = dateFormat.format(new Date()).length();
-        assertEquals(FILE_NAME_PREFIX.length() + timestampLength +
-                FILE_NAME_SUFFIX.length(), fileName.length());
-        assertTrue(fileName.startsWith(FILE_NAME_PREFIX));
-        assertTrue(fileName.endsWith(FILE_NAME_SUFFIX));
-        String timestamp = fileName.substring(FILE_NAME_PREFIX.length(),
-                FILE_NAME_PREFIX.length() + timestampLength);
-        dateFormat.setLenient(false);
-        ParsePosition parsePosition = new ParsePosition(0);
-        fileDate = dateFormat.parse(timestamp, parsePosition);
-        assertNotNull(fileDate);
-        assertEquals(timestampLength, parsePosition.getIndex());
-        assertTrue(testStartDate.compareTo(fileDate) <= 0);
-        assertTrue(testFinishDate.compareTo(fileDate) >= 0);
+        String expected = FILE_NAME_PREFIX + dateFormat.format(fileDate) + FILE_NAME_SUFFIX;
+        assertEquals(expected, fileName);
     }
 
     @AfterAll
