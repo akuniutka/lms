@@ -1,0 +1,152 @@
+{
+  "students": [
+    {
+      "studentFullName": "Петров П. А.",
+      "studentUniversityId": "0001-high",
+      "studentCurrentCourseNumber": 1,
+      "studentAvgExamScore": 5.0
+    },
+    {
+      "studentFullName": "Алексеев С. В.",
+      "studentUniversityId": "0001-high",
+      "studentCurrentCourseNumber": 1,
+      "studentAvgExamScore": 5.0
+    },
+    {
+      "studentFullName": "Соколов В. В.",
+      "studentUniversityId": "0004-high",
+      "studentCurrentCourseNumber": 1,
+      "studentAvgExamScore": 4.8
+    },
+    {
+      "studentFullName": "Иванов А. Г.",
+      "studentUniversityId": "0001-high",
+      "studentCurrentCourseNumber": 3,
+      "studentAvgExamScore": 4.8
+    },
+    {
+      "studentFullName": "Васильев В. П.",
+      "studentUniversityId": "0001-high",
+      "studentCurrentCourseNumber": 4,
+      "studentAvgExamScore": 4.7
+    },
+    {
+      "studentFullName": "Козлов М. В.",
+      "studentUniversityId": "0002-high",
+      "studentCurrentCourseNumber": 2,
+      "studentAvgExamScore": 4.6
+    },
+    {
+      "studentFullName": "Игнатьев М. М.",
+      "studentUniversityId": "0003-high",
+      "studentCurrentCourseNumber": 4,
+      "studentAvgExamScore": 4.3
+    },
+    {
+      "studentFullName": "Фёдоров А. И.",
+      "studentUniversityId": "0002-high",
+      "studentCurrentCourseNumber": 3,
+      "studentAvgExamScore": 4.2
+    },
+    {
+      "studentFullName": "Иванов И. А.",
+      "studentUniversityId": "0002-high",
+      "studentCurrentCourseNumber": 2,
+      "studentAvgExamScore": 4.0
+    },
+    {
+      "studentFullName": "Витальев В. А.",
+      "studentUniversityId": "0001-high",
+      "studentCurrentCourseNumber": 2,
+      "studentAvgExamScore": 4.0
+    },
+    {
+      "studentFullName": "Сидоров Е. Г.",
+      "studentUniversityId": "0004-high",
+      "studentCurrentCourseNumber": 2,
+      "studentAvgExamScore": 3.9
+    }
+  ],
+  "universities": [
+    {
+      "universityId": "0005-high",
+      "universityFullName": "Самарский Медицинский Институт",
+      "universityShortName": "СМИ",
+      "universityYearOfFoundation": 1936,
+      "universityMainProfile": "MEDICINE"
+    },
+    {
+      "universityId": "0003-high",
+      "universityFullName": "Московский Государственный Медицинский Университет",
+      "universityShortName": "МГМУ",
+      "universityYearOfFoundation": 1960,
+      "universityMainProfile": "MEDICINE"
+    },
+    {
+      "universityId": "0002-high",
+      "universityFullName": "Московский Придуманный Институт",
+      "universityShortName": "МПИ",
+      "universityYearOfFoundation": 1987,
+      "universityMainProfile": "PHYSICS"
+    },
+    {
+      "universityId": "0007-high",
+      "universityFullName": "Казанский Университет Вычислений",
+      "universityShortName": "КУВ",
+      "universityYearOfFoundation": 1989,
+      "universityMainProfile": "MATHEMATICS"
+    },
+    {
+      "universityId": "0001-high",
+      "universityFullName": "Московский Выдуманный Университет",
+      "universityShortName": "МВУ",
+      "universityYearOfFoundation": 1990,
+      "universityMainProfile": "PHYSICS"
+    },
+    {
+      "universityId": "0004-high",
+      "universityFullName": "Тамбовский Университет Медицины",
+      "universityShortName": "ТУМ",
+      "universityYearOfFoundation": 1995,
+      "universityMainProfile": "MEDICINE"
+    },
+    {
+      "universityId": "0006-high",
+      "universityFullName": "Воронежский Литературно-Переводческий Университет",
+      "universityShortName": "ВЛПУ",
+      "universityYearOfFoundation": 2003,
+      "universityMainProfile": "LINGUISTICS"
+    }
+  ],
+  "statistics": [
+    {
+      "studyProfile": "MATHEMATICS",
+      "avgExamScore": 0.0,
+      "numberOfStudents": 0,
+      "numberOfUniversities": 1,
+      "universityNames": "Казанский Университет Вычислений"
+    },
+    {
+      "studyProfile": "PHYSICS",
+      "avgExamScore": 4.54,
+      "numberOfStudents": 8,
+      "numberOfUniversities": 2,
+      "universityNames": "Московский Придуманный Институт;Московский Выдуманный Университет"
+    },
+    {
+      "studyProfile": "MEDICINE",
+      "avgExamScore": 4.33,
+      "numberOfStudents": 3,
+      "numberOfUniversities": 3,
+      "universityNames": "Самарский Медицинский Институт;Московский Государственный Медицинский Университет;Тамбовский Университет Медицины"
+    },
+    {
+      "studyProfile": "LINGUISTICS",
+      "avgExamScore": 0.0,
+      "numberOfStudents": 0,
+      "numberOfUniversities": 1,
+      "universityNames": "Воронежский Литературно-Переводческий Университет"
+    }
+  ],
+  "processedAt": "2021-04-11T18:39:17.285+03:00"
+}

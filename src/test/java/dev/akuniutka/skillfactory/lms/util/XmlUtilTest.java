@@ -7,7 +7,6 @@ import dev.akuniutka.skillfactory.lms.model.LmsData;
 import dev.akuniutka.skillfactory.lms.model.Statistics;
 import dev.akuniutka.skillfactory.lms.model.Student;
 import dev.akuniutka.skillfactory.lms.model.University;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -74,8 +73,8 @@ class XmlUtilTest {
         assertEquals(expected, fileName);
     }
 
-    @AfterAll
-    static void whenMarshalFileShouldContainCorrectData() {
+    @Test
+    void whenMarshalFileShouldContainCorrectData() {
         URL url = XmlUtilTest.class.getResource(SAMPLE_FILE_NAME);
         if (url == null) {
             fail("cannot read sample xml file");
