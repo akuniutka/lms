@@ -2,14 +2,21 @@ package dev.akuniutka.skillfactory.lms.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import javax.xml.bind.annotation.*;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = {"fullName", "universityId", "avgExamScore"})
 public class Student {
     @SerializedName("studentFullName")
+    @XmlElement(name = "studentName")
     private String fullName;
     @SerializedName("studentUniversityId")
     private String universityId;
     @SerializedName("studentCurrentCourseNumber")
+    @XmlTransient
     private int currentCourseNumber;
     @SerializedName("studentAvgExamScore")
+    @XmlElement(name = "avgScore")
     private float avgExamScore;
 
 

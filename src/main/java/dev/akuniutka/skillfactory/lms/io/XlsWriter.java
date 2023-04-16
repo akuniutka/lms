@@ -45,9 +45,7 @@ public class XlsWriter {
             for (Statistics statistics : data) {
                 row = sheet.createRow(rowIndex++);
                 row.createCell(0, CellType.STRING).setCellValue(statistics.getStudyProfile().toString());
-                if (statistics.getAvgExamScore().isPresent()) {
-                    row.createCell(1, CellType.NUMERIC).setCellValue(statistics.getAvgExamScore().getAsDouble());
-                }
+                row.createCell(1, CellType.NUMERIC).setCellValue(statistics.getAvgExamScore());
                 row.createCell(2, CellType.NUMERIC).setCellValue(statistics.getNumberOfStudents());
                 row.createCell(3, CellType.NUMERIC).setCellValue(statistics.getNumberOfUniversities());
                 row.createCell(4, CellType.STRING).setCellValue(statistics.getUniversityNames());

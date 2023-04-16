@@ -44,7 +44,7 @@ class XlsReaderTest {
         }
         try {
             actual = XlsReader.getStudentsList(STUDENTS_FILE_NAME);
-        } catch (IOException e) {
+        } catch (RuntimeException e) {
             fail("method threw an exception");
             return;
         }
@@ -74,7 +74,7 @@ class XlsReaderTest {
         }
         try {
             actual = XlsReader.getUniversitiesList(UNIVERSITIES_FILE_NAME);
-        } catch (IOException e) {
+        } catch (RuntimeException e) {
             fail("method threw an exception");
             return;
         }
