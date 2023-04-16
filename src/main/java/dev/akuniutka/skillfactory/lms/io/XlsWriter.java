@@ -25,7 +25,7 @@ public class XlsWriter {
     private XlsWriter() {}
 
     public static void saveStatistics(String path, Collection<Statistics> data) {
-        LOGGER.fine("creating a workbook and file '" + path + "'");
+        LOGGER.info("creating a workbook and file '" + path + "'");
         try (Workbook workbook = WorkbookFactory.create(true);
              FileOutputStream out = new FileOutputStream(path)
         ) {
@@ -50,9 +50,9 @@ public class XlsWriter {
                 row.createCell(3, CellType.NUMERIC).setCellValue(statistics.getNumberOfUniversities());
                 row.createCell(4, CellType.STRING).setCellValue(statistics.getUniversityNames());
             }
-            LOGGER.fine("writing statistics to file '" + path + "'");
+            LOGGER.finer("writing statistics to file '" + path + "'");
             workbook.write(out);
-            LOGGER.fine("statistics successfully written to file '" + path + "'");
+            LOGGER.info("statistics successfully written to file '" + path + "'");
         } catch (IOException e) {
             LOGGER.severe("error writing to file '" + path + "'");
             throw new RuntimeException("error writing to file '" + path + "'");

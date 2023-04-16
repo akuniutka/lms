@@ -21,7 +21,7 @@ public class XlsReader {
 
     public static List<Student> getStudentsList(String fileName) {
         List<Student> students = new ArrayList<>();
-        LOGGER.fine("reading data from sheet '" + STUDENTS_SHEET_NAME + "' in file '" + fileName + "'");
+        LOGGER.info("reading data from sheet '" + STUDENTS_SHEET_NAME + "' in file '" + fileName + "'");
         InputStream is = XlsReader.class.getResourceAsStream(fileName);
         if (is == null) {
             LOGGER.severe("file '" + fileName + "' not found among resources");
@@ -46,13 +46,13 @@ public class XlsReader {
             LOGGER.severe("reading error in file '" + fileName + "'");
             throw new RuntimeException("error reading from file '" + fileName + "'");
         }
-        LOGGER.fine("data succefully read from sheet '" + STUDENTS_SHEET_NAME + "' in file '" + fileName + "'");
+        LOGGER.info("data successfully read from sheet '" + STUDENTS_SHEET_NAME + "' in file '" + fileName + "'");
         return students;
     }
 
     public static List<University> getUniversitiesList(String fileName) {
         List<University> universities = new ArrayList<>();
-        LOGGER.fine("reading data from sheet '" + UNIVERSITIES_SHEET_NAME + "' in file '" + fileName + "'");
+        LOGGER.info("reading data from sheet '" + UNIVERSITIES_SHEET_NAME + "' in file '" + fileName + "'");
         InputStream is = XlsReader.class.getResourceAsStream(fileName);
         if (is == null) {
             LOGGER.severe("file '" + fileName + "' not found among resources");
@@ -78,7 +78,7 @@ public class XlsReader {
             LOGGER.severe("reading error in file '" + fileName + "'");
             throw new RuntimeException("error reading from file '" + fileName + "'");
         }
-        LOGGER.fine("data succefully read from sheet '" + STUDENTS_SHEET_NAME + "' in file '" + fileName + "'");
+        LOGGER.info("data successfully read from sheet '" + UNIVERSITIES_SHEET_NAME + "' in file '" + fileName + "'");
         return universities;
     }
 }
