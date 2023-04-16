@@ -2,6 +2,7 @@ package dev.akuniutka.skillfactory.lms.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import dev.akuniutka.skillfactory.lms.comparator.StudentComparatorType;
 import dev.akuniutka.skillfactory.lms.comparator.UniversityComparatorType;
 import dev.akuniutka.skillfactory.lms.io.XlsReader;
@@ -83,7 +84,7 @@ class JsonUtilTest {
                     ",\n  \"studentCurrentCourseNumber\": " + student.getCurrentCourseNumber() +
                     ",\n  \"studentAvgExamScore\": " + student.getAvgExamScore() +
                     "\n}";
-            String actual = JsonUtil.serializeStudent(student);
+            String actual = JsonUtil.serialize(student);
             assertEquals(expected, actual);
         }
     }
@@ -99,7 +100,7 @@ class JsonUtilTest {
                     ",\n  \"universityYearOfFoundation\": " + university.getYearOfFoundation() +
                     ",\n  \"universityMainProfile\": \"" + university.getMainProfile() + '"' +
                     "\n}";
-            String actual = JsonUtil.serializeUniversity(university);
+            String actual = JsonUtil.serialize(university);
             assertEquals(expected, actual);
         }
     }
@@ -119,7 +120,7 @@ class JsonUtilTest {
             students.add(student);
         }
         expected.append("\n]");
-        String actual = JsonUtil.serializeStudents(students);
+        String actual = JsonUtil.serialize(students);
         assertEquals(expected.toString(), actual);
     }
 
@@ -139,7 +140,7 @@ class JsonUtilTest {
             universities.add(university);
         }
         expected.append("\n]");
-        String actual = JsonUtil.serializeUniversities(universities);
+        String actual = JsonUtil.serialize(universities);
         assertEquals(expected.toString(), actual);
     }
 
@@ -148,7 +149,7 @@ class JsonUtilTest {
         for (int i = 0; i < TEST_ITERATIONS; i++) {
             Student expected = testData.createRandomStudent();
             String json = gson.toJson(expected);
-            Student actual = JsonUtil.deserializeStudent(json);
+            Student actual = JsonUtil.deserialize(json, new TypeToken<Student>() {}.getType());
             assertEquals(expected.toString(), actual.toString());
         }
     }
@@ -158,7 +159,7 @@ class JsonUtilTest {
         for (int i = 0; i < TEST_ITERATIONS; i++) {
             University expected = testData.createRandomUniversity();
             String json = gson.toJson(expected);
-            University actual = JsonUtil.deserializeUniversity(json);
+            University actual = JsonUtil.deserialize(json, new TypeToken<University>() {}.getType());
             assertEquals(expected.toString(), actual.toString());
             assertEquals(expected.getMainProfile(), actual.getMainProfile());
         }
@@ -171,7 +172,7 @@ class JsonUtilTest {
             expected.add(testData.createRandomStudent());
         }
         String json = gson.toJson(expected);
-        List<Student> actual = JsonUtil.deserializeStudents(json);
+        List<Student> actual = JsonUtil.deserialize(json, new TypeToken<ArrayList<Student>>() {}.getType());
         assertEquals(expected.size(), actual.size());
         for (int i = 0; i < expected.size(); i++) {
             assertEquals(expected.get(i).toString(), actual.get(i).toString());
@@ -185,7 +186,7 @@ class JsonUtilTest {
             expected.add(testData.createRandomUniversity());
         }
         String json = gson.toJson(expected);
-        List<University> actual = JsonUtil.deserializeUniversities(json);
+        List<University> actual = JsonUtil.deserialize(json, new TypeToken<ArrayList<University>>() {}.getType());
         assertEquals(expected.size(), actual.size());
         for (int i = 0; i < expected.size(); i++) {
             assertEquals(expected.get(i).toString(), actual.get(i).toString());
