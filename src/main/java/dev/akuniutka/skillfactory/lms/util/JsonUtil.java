@@ -28,7 +28,7 @@ public class JsonUtil {
         return new Gson().fromJson(json, typeOfT);
     }
 
-    public static void marshal(LmsData lmsData) {
+    public static void serializeToFIle(LmsData lmsData) {
         LOGGER.info("serializing data to JSON");
         File file = new File("./jsonReqs");
         if (!file.exists() && !file.mkdir()) {

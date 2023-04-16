@@ -34,7 +34,7 @@ class JsonUtilTest {
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @BeforeAll
-    static void whenMarshalShouldCreateOneNewFile() {
+    static void whenSerializeToFileShouldCreateOneNewFile() {
         List<Student> students;
         List<University> universities;
         try {
@@ -54,11 +54,7 @@ class JsonUtilTest {
         fileDate = lmsData.getProcessedAt();
         File file = new File(OUTPUT_DIR);
         String[] filesBefore = file.list();
-        try {
-            JsonUtil.marshal(lmsData);
-        } catch (FileNotFoundException e) {
-            fail("JsonUtil.marshal() threw an exception", e);
-        }
+        JsonUtil.serializeToFIle(lmsData);
         String[] filesAfter = file.list();
         assertNotNull(filesAfter);
         List<String> newFiles = new ArrayList<>(Arrays.asList(filesAfter));
@@ -149,7 +145,8 @@ class JsonUtilTest {
         for (int i = 0; i < TEST_ITERATIONS; i++) {
             Student expected = testData.createRandomStudent();
             String json = gson.toJson(expected);
-            Student actual = JsonUtil.deserialize(json, new TypeToken<Student>() {}.getType());
+            Student actual = JsonUtil.deserialize(json, new TypeToken<Student>() {
+            }.getType());
             assertEquals(expected.toString(), actual.toString());
         }
     }
@@ -159,7 +156,8 @@ class JsonUtilTest {
         for (int i = 0; i < TEST_ITERATIONS; i++) {
             University expected = testData.createRandomUniversity();
             String json = gson.toJson(expected);
-            University actual = JsonUtil.deserialize(json, new TypeToken<University>() {}.getType());
+            University actual = JsonUtil.deserialize(json, new TypeToken<University>() {
+            }.getType());
             assertEquals(expected.toString(), actual.toString());
             assertEquals(expected.getMainProfile(), actual.getMainProfile());
         }
@@ -172,7 +170,8 @@ class JsonUtilTest {
             expected.add(testData.createRandomStudent());
         }
         String json = gson.toJson(expected);
-        List<Student> actual = JsonUtil.deserialize(json, new TypeToken<ArrayList<Student>>() {}.getType());
+        List<Student> actual = JsonUtil.deserialize(json, new TypeToken<ArrayList<Student>>() {
+        }.getType());
         assertEquals(expected.size(), actual.size());
         for (int i = 0; i < expected.size(); i++) {
             assertEquals(expected.get(i).toString(), actual.get(i).toString());
@@ -186,7 +185,8 @@ class JsonUtilTest {
             expected.add(testData.createRandomUniversity());
         }
         String json = gson.toJson(expected);
-        List<University> actual = JsonUtil.deserialize(json, new TypeToken<ArrayList<University>>() {}.getType());
+        List<University> actual = JsonUtil.deserialize(json, new TypeToken<ArrayList<University>>() {
+        }.getType());
         assertEquals(expected.size(), actual.size());
         for (int i = 0; i < expected.size(); i++) {
             assertEquals(expected.get(i).toString(), actual.get(i).toString());
@@ -195,14 +195,14 @@ class JsonUtilTest {
     }
 
     @Test
-    void whenMarshalFileShouldhaveCorrectName() {
+    void whenSerializeToFileFileShouldHaveCorrectName() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_STRING);
         String expected = FILE_NAME_PREFIX + dateFormat.format(fileDate) + FILE_NAME_SUFFIX;
         assertEquals(expected, fileName);
     }
 
     @Test
-    void whenMarshalFileShouldContainCorrectData() {
+    void whenSerializeToFileFileShouldContainCorrectData() {
         URL url = XmlUtilTest.class.getResource(SAMPLE_FILE_NAME);
         if (url == null) {
             fail("cannot read sample xml file");

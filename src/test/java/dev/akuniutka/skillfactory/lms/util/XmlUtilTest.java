@@ -10,7 +10,6 @@ import dev.akuniutka.skillfactory.lms.model.University;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -31,7 +30,7 @@ class XmlUtilTest {
 
 
     @BeforeAll
-    static void whenMarshalShouldCreateOneNewFile()  {
+    static void whenMarshalShouldCreateOneNewFile() {
         List<Student> students;
         List<University> universities;
         try {
@@ -51,11 +50,7 @@ class XmlUtilTest {
         fileDate = lmsData.getProcessedAt();
         File file = new File(OUTPUT_DIR);
         String[] filesBefore = file.list();
-        try {
-            XmlUtil.marshal(lmsData);
-        } catch (FileNotFoundException | JAXBException e) {
-            fail("XMLUtil.marshal() threw an exception", e);
-        }
+        XmlUtil.marshal(lmsData);
         String[] filesAfter = file.list();
         assertNotNull(filesAfter);
         List<String> newFiles = new ArrayList<>(Arrays.asList(filesAfter));
@@ -67,7 +62,7 @@ class XmlUtilTest {
     }
 
     @Test
-    void whenMarshalFileShouldhaveCorrectName() {
+    void whenMarshalFileShouldHaveCorrectName() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_STRING);
         String expected = FILE_NAME_PREFIX + dateFormat.format(fileDate) + FILE_NAME_SUFFIX;
         assertEquals(expected, fileName);

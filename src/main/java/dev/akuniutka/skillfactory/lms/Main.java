@@ -36,6 +36,14 @@ public class Main {
 
         XlsWriter.saveStatistics(OUTPUT_FILE_NAME, statistics);
 
+        LmsData lmsData = new LmsData();
+        lmsData.setStudents(students);
+        lmsData.setUniversities(universities);
+        lmsData.setStatistics(statistics);
+
+        XmlUtil.marshal(lmsData);
+        JsonUtil.serializeToFIle(lmsData);
+
         LOGGER.info("application stopped");
     }
 }
